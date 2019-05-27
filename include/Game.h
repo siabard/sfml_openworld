@@ -10,6 +10,10 @@
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+
+#include "State.h"
 
 class Game {
  private:
@@ -17,8 +21,15 @@ class Game {
   sf::RenderWindow* window;
   sf::Event sfEvent;
 
+  // Delta time
+  sf::Clock dtClock;
+  float dt;
+
+  std::stack<State*> states;
+
   // Initialization
   void initWindow();
+  void initStates();
 
  public:
 
@@ -29,6 +40,7 @@ class Game {
   virtual ~Game();
 
   // Functions
+  void updateDt();
   void updateSFMLEvents();
   void update();
   void render();
