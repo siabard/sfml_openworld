@@ -56,11 +56,24 @@ void Game::updateSFMLEvents() {
 
 }
 
+void Game::endApplication() {
+  std::cout << "Ending Appliation" << std::endl;
+}
+
 void Game::update() {
   this->updateSFMLEvents();
 
   if (!this->states.empty()) {
     this->states.top()->update(this->dt);
+
+    if(this->states.top()->getQuit()) {
+      this->states.top()->endState();
+      delete this->states.top();
+      this->states.pop();
+    }
+  } else {
+    this->endApplication();
+    this->window->close();
   }
 };
 
@@ -93,7 +106,5 @@ void Game::updateDt() {
 
   this->dt = this->dtClock.getElapsedTime().asSeconds();
   this->dtClock.restart();
-
-  std::cout << this->dt << std::endl;
 
 }

@@ -40,10 +40,19 @@ class Game {
   virtual ~Game();
 
   // Functions
+
+  // Regular
+  void endApplication();
+
+  // updates
   void updateDt();
   void updateSFMLEvents();
   void update();
+
+  // render
   void render();
+
+  // core
   void run();
 };
 
