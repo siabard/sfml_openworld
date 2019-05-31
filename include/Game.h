@@ -12,8 +12,11 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <map>
+#include <string>
 
 #include "State.h"
+#include "../States/GameState.h"
 
 class Game {
  private:
@@ -27,9 +30,12 @@ class Game {
 
   std::stack<State*> states;
 
+  std::map<std::string, int> supportedKeys;
+
   // Initialization
   void initWindow();
   void initStates();
+  void initKeys();
 
  public:
 

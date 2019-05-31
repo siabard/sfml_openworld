@@ -2,16 +2,24 @@
 #define __GAME_STATES_H__
 
 #include "../include/State.h"
+#include "../include/Entity.h"
 
 class GameState : public State {
 
+private:
+  Entity player;
+
+protected:
+  // functions
+  void initKeybinds();
+
 public:
-  GameState(sf::RenderWindow* window);
+  GameState(sf::RenderWindow*,  std::map<std::string, int>*);
   virtual ~GameState();
 
   // fucntions
   void endState();
-  void updateKeybinds(const float& dt);
+  void updateInput(const float& dt);
   void update(const float& dt);
   void render(sf::RenderTarget* target = nullptr);
 };

@@ -1,5 +1,8 @@
 LIBS=-lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system
 
+entity:
+	g++ -c Entity.cpp -o entity.o
+
 game:
 	g++ -c Game.cpp -o game.o
 
@@ -12,9 +15,9 @@ main:
 state:
 	g++ -c State.cpp -o state.o
 
-all: main game state gamestate
+all: main game state gamestate entity
 	@echo "** Building the Game**"
-	g++ -o main gamestate.o state.o game.o main.o $(LIBS)
+	g++ -o main entity.o gamestate.o state.o game.o main.o $(LIBS)
 
 clean:
 	@echo "** Removing object files and excutables**"
