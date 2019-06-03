@@ -1,5 +1,6 @@
 #include "include/Game.h"
 #include "States/GameState.h"
+#include "States/MainMenuState.h"
 
 // Static functions
 
@@ -28,6 +29,7 @@ void Game::initWindow() {
 }
 
 void Game::initStates() {
+  this->states.push(new MainMenuState(this->window, &this->supportedKeys));
   this->states.push(new GameState(this->window, &this->supportedKeys));
 }
 

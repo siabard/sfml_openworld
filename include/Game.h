@@ -16,7 +16,6 @@
 #include <string>
 
 #include "State.h"
-#include "../States/GameState.h"
 
 class Game {
  private:
