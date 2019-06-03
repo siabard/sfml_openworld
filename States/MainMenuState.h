@@ -2,15 +2,19 @@
 #define __MAIN_MENU_STATE__H__
 
 #include "../include/State.h"
+#include "../Resource/Button.h"
 
-class MainMenuState : public State {
+class MainMenuState :
+  public State {
 
  private:
   // Variables
   sf::RectangleShape background;
+  sf::Font font;
 
  protected:
   // functions
+  void initFonts();
   void initKeybinds();
 
  public:

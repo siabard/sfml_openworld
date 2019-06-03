@@ -18,9 +18,12 @@ main:
 state:
 	g++ -c State.cpp -o state.o
 
-all: main game state gamestate entity mainmenustate
+button:
+	g++ -c Resource/Button.cpp -o button.o
+
+all: main game state gamestate entity mainmenustate button
 	@echo "** Building the Game**"
-	g++ -o main entity.o mainmenustate.o gamestate.o state.o game.o main.o $(LIBS)
+	g++ -o main entity.o mainmenustate.o gamestate.o state.o game.o button.o main.o $(LIBS)
 
 clean:
 	@echo "** Removing object files and excutables**"

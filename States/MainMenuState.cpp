@@ -25,6 +25,7 @@ MainMenuState::~MainMenuState() {
 }
 
 void MainMenuState::update(const float& dt) {
+  this->updateMousePosition();
   this->updateInput(dt);
 }
 
@@ -44,4 +45,12 @@ void MainMenuState::updateInput(const float& dt) {
 
 void MainMenuState::endState() {
   std::cout << "MainMenuState endState " << std::endl;
+}
+
+
+void MainMenuState::initFonts() {
+  if(!this->font.loadFromFile("fonts/DroidSans.ttf")) {
+    throws("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT");
+  }
+
 }
