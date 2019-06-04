@@ -12,6 +12,8 @@ class MainMenuState :
   sf::RectangleShape background;
   sf::Font font;
 
+  Button* gamestate_btn;
+
  protected:
   // functions
   void initFonts();
