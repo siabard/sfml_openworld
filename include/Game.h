@@ -6,6 +6,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
+#include <SFML/Window/ContextSettings.hpp>
 
 #include <ctime>
 #include <cstdlib>
@@ -22,7 +23,9 @@ class Game {
   // Variables
   sf::RenderWindow* window;
   sf::Event sfEvent;
-
+  std::vector<sf::VideoMode> videoModes;
+  sf::ContextSettings windowSettings;
+  bool fullscreen;
   // Delta time
   sf::Clock dtClock;
   float dt;
@@ -32,6 +35,7 @@ class Game {
   std::map<std::string, int> supportedKeys;
 
   // Initialization
+  void initVariables();
   void initWindow();
   void initStates();
   void initKeys();

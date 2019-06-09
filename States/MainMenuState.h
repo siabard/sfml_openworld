@@ -3,7 +3,7 @@
 
 #include "../include/State.h"
 #include "../Resource/Button.h"
-#include <map>
+#include "GameState.h"
 
 class MainMenuState :
   public State {
@@ -22,7 +22,7 @@ class MainMenuState :
   void initButtons();
 
  public:
-  MainMenuState(sf::RenderWindow*,  std::map<std::string, int>*);
+  MainMenuState(sf::RenderWindow*,  std::map<std::string, int>*, std::stack<State*>*);
   virtual ~MainMenuState();
 
   // fucntions

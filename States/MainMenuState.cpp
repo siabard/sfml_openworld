@@ -1,7 +1,7 @@
 #include "MainMenuState.h"
 
 void MainMenuState::initKeybinds() {
-  std::ifstream ifs("config/gamestate_keybinds.ini");
+  std::ifstream ifs("config/mainmenustate_keybinds.ini");
   if(ifs.is_open()) {
     std::string key = "";
     std::string key_binding = "";
@@ -9,12 +9,12 @@ void MainMenuState::initKeybinds() {
       this->keybinds[key_binding] = this->supportedKeys->at(key);
     }
   } else {
-    std::cout << "file not exist: gamestate_keybinds.ini" << std::endl;
+    std::cout << "file not exist: config/mainmenustate_keybinds.ini" << std::endl;
   }
   ifs.close();
 }
 
-MainMenuState::MainMenuState(sf::RenderWindow* window,  std::map<std::string, int>* supportedKeys) : State(window, supportedKeys) {
+MainMenuState::MainMenuState(sf::RenderWindow* window,  std::map<std::string, int>* supportedKeys, std::stack<State*>*  states) : State(window, supportedKeys, states) {
   this->initKeybinds();
   this->initFonts();
   this->initButtons();
@@ -85,6 +85,7 @@ void MainMenuState::updateButtons() {
   // New Game
   if(this->buttons["GAME_STATE_BUTTONS"]->isPressed()) {
     // State를 push할 수 있어야한다.
+    this->states->push(new GameState(this->window, this->supportedKeys, this->states));
   }
 
 

@@ -14,7 +14,7 @@ protected:
   void initKeybinds();
 
 public:
-  GameState(sf::RenderWindow*,  std::map<std::string, int>*);
+  GameState(sf::RenderWindow*,  std::map<std::string, int>*, std::stack<State*>*);
   virtual ~GameState();
 
   // fucntions
