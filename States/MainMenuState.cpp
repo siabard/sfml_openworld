@@ -1,5 +1,6 @@
 #include "MainMenuState.h"
 
+// Initiaizlier Function
 void MainMenuState::initKeybinds() {
   std::ifstream ifs("config/mainmenustate_keybinds.ini");
   if(ifs.is_open()) {
@@ -14,12 +15,32 @@ void MainMenuState::initKeybinds() {
   ifs.close();
 }
 
+
+void MainMenuState::initBackground() {
+  std::cout << "INITBACKGROUND" << std::endl;
+  this->background.setSize(sf::Vector2f(static_cast<float>(this->window->getSize().x), static_cast<float>(this->window->getSize().y)));
+
+  if(!this->backgroundTexture.loadFromFile("Resource/images/backgrounds/bg1.png")) {
+
+    throw("ERROR::MAINMENUSTATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE");
+  }
+
+
+  this->background.setTexture(&this->backgroundTexture);
+  std::cout << "INITBACKGROUND END" << std::endl;
+
+}
+
+void MainMenuState::initVariables() {}
+
+
 MainMenuState::MainMenuState(sf::RenderWindow* window,  std::map<std::string, int>* supportedKeys, std::stack<State*>*  states) : State(window, supportedKeys, states) {
+  this->initVariables();
+  this->initBackground();
   this->initKeybinds();
   this->initFonts();
   this->initButtons();
-  this->background.setSize(sf::Vector2f((float)window->getSize().x, (float)window->getSize().y));
-  this->background.setFillColor(sf::Color::Magenta);
+
 }
 
 MainMenuState::~MainMenuState() {
@@ -45,6 +66,18 @@ void MainMenuState::render(sf::RenderTarget* target) {
 
   target->draw(this->background);
   this->renderButtons(target);
+
+  // REMOVE LATER!!
+  // sf::Text mouseText;
+  // mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 50;);
+  // mouseText.setFont(this->font);
+  // mouseText.setCharacterSize(12);
+  // std::stringstream ss;
+  // ss << this->mousePosView.x << " " << this->mousePosView.y;
+  // mouseText.setString(ss.str());
+
+  // target->draw(mouseText);
+
 }
 
 void MainMenuState::updateInput(const float& dt) {
@@ -67,9 +100,12 @@ void MainMenuState::initFonts() {
 }
 
 void MainMenuState::initButtons() {
-  this->buttons["GAME_STATE_BUTTONS"] = new Button(100, 100, 150, 50, &this->font, "New Game", sf::Color(70, 70, 70, 200),  sf::Color(150, 150, 150, 255),  sf::Color(20, 20, 20, 200));
+  this->buttons["GAME_STATE_BUTTONS"] = new Button(300, 480, 250, 50, &this->font, "New Game", sf::Color(70, 70, 70, 200),  sf::Color(150, 150, 150, 255),  sf::Color(20, 20, 20, 200));
 
-  this->buttons["EXIT_STATE_BUTTONS"] = new Button(100, 300, 150, 50, &this->font, "Quit", sf::Color(100, 100, 100, 200),  sf::Color(150, 150, 150, 255),  sf::Color(20, 20, 20, 200));
+  this->buttons["SETTINGS"] = new Button(300, 580, 250, 50, &this->font, "Settings", sf::Color(70, 70, 70, 200),  sf::Color(150, 150, 150, 255),  sf::Color(20, 20, 20, 200));
+
+
+  this->buttons["EXIT_STATE_BUTTONS"] = new Button(300, 780, 250, 50, &this->font, "Quit", sf::Color(100, 100, 100, 200),  sf::Color(150, 150, 150, 255),  sf::Color(20, 20, 20, 200));
 
 }
 

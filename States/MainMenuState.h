@@ -4,12 +4,14 @@
 #include "../include/State.h"
 #include "../Resource/Button.h"
 #include "GameState.h"
+#include <exception>
 
 class MainMenuState :
   public State {
 
  private:
   // Variables
+  sf::Texture backgroundTexture;
   sf::RectangleShape background;
   sf::Font font;
 
@@ -17,6 +19,8 @@ class MainMenuState :
 
  protected:
   // functions
+  void initVariables();
+  void initBackground();
   void initFonts();
   void initKeybinds();
   void initButtons();
