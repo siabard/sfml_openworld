@@ -1,28 +1,29 @@
+CCFLAGS=-Wall -g -c
 LIBS=-lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system
 
 entity:
-	g++ -g -c Entity.cpp -o entity.o
+	g++ $(CCFLAGS) Entity.cpp -o entity.o
 
 game:
-	g++ -g -c Game.cpp -o game.o
+	g++ $(CCFLAGS) Game.cpp -o game.o
 
 gamestate:
-	g++ -g -c States/GameState.cpp -o gamestate.o
+	g++ $(CCFLAGS) States/GameState.cpp -o gamestate.o
 
 mainmenustate:
-	g++ -g -c States/MainMenuState.cpp -o mainmenustate.o
+	g++ $(CCFLAGS) States/MainMenuState.cpp -o mainmenustate.o
 
 main:
-	g++ -g -c main.cpp -o main.o
+	g++ $(CCFLAGS) main.cpp -o main.o
 
 state:
-	g++ -g -c State.cpp -o state.o
+	g++ $(CCFLAGS) State.cpp -o state.o
 
 button:
-	g++ -g -c Resource/Button.cpp -o button.o
+	g++ $(CCFLAGS) Resource/Button.cpp -o button.o
 
 player:
-	g++ -g -c Player.cpp -o player.o
+	g++ $(CCFLAGS) Player.cpp -o player.o
 
 all: main game state gamestate entity mainmenustate button player
 	@echo "** Building the Game**"
