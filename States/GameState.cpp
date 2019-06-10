@@ -23,10 +23,7 @@ void GameState::initTextures() {
 }
 
 void GameState::initPlayers() {
-  std::cout << "GAMESTATE::INITPLAYER" << std::endl;
-
-  this->player = new Player(0, 0, &this->textures["PLAYER_IDLE"]);
-  std::cout << "GAMESTATE::INITPLAYER END" << std::endl;
+  this->player = new Player(0, 0, this->textures["PLAYER_IDLE"]);
 
 }
 

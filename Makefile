@@ -1,6 +1,6 @@
 PROJ_NAME=main
 CC=g++
-CCFLAGS=-Wall -g -c
+CCFLAGS=-Wall -g -c -fstack-protector
 LIBS=-lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system
 SOURCES=$(wildcard *.cpp */*.cpp)
 OBJS=$(patsubst %.cpp, %.o, $(SOURCES))

@@ -14,8 +14,8 @@ private:
 
 protected:
 
-  sf::Texture* texture;
-  sf::Sprite* sprite;
+  sf::Texture*  texture;
+  sf::Sprite sprite;
 
   MovementComponent* movementComponent;
 
@@ -24,7 +24,7 @@ public:
   virtual ~Entity();
 
   // Component functions
-  void createSprite(sf::Texture* Texture);
+  void setTexture(sf::Texture& Texture);
   void createMovementComponent(const float maxVelocity);
 
   // functions

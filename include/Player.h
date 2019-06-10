@@ -14,7 +14,7 @@ private:
   void initComponents();
 
 public:
-  Player(float, float, sf::Texture*);
+  Player(float, float, sf::Texture&);
   virtual ~Player();
 
   // functions
