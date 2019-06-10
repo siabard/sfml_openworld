@@ -3,22 +3,24 @@
 
 #include "../include/State.h"
 #include "../include/Entity.h"
+#include "../include/Player.h"
 
 class GameState : public State {
 
 private:
-  Entity player;
+  Player*  player;
 
 protected:
   // functions
   void initKeybinds();
+  void initTextures();
+  void initPlayers();
 
 public:
   GameState(sf::RenderWindow*,  std::map<std::string, int>*, std::stack<State*>*);
   virtual ~GameState();
 
   // fucntions
-  void endState();
   void updateInput(const float& dt);
   void update(const float& dt);
   void render(sf::RenderTarget* target = nullptr);

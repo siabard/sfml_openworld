@@ -3,19 +3,30 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
+#include <iostream>
+#include <stack>
+#include <map>
 
 class Entity {
- private:
+private:
+  void initVariables();
 
- protected:
-  sf::RectangleShape shape; // place holder
+protected:
+
+  sf::Texture* texture;
+  sf::Sprite* sprite;
+
   float movementSpeed;
 
- public:
+public:
   Entity();
   virtual ~Entity();
 
+  // Component functions
+  void createSprite(sf::Texture* Texture);
+
   // functions
+  virtual void setPosition(const float, const float);
   virtual void move(const float& dt, const float, const float);
   virtual void update(const float& dt);
   virtual void render(sf::RenderTarget* target);

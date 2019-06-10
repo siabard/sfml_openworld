@@ -30,7 +30,6 @@ class MainMenuState :
   virtual ~MainMenuState();
 
   // fucntions
-  void endState();
   void updateButtons();
   void updateInput(const float& dt);
   void update(const float& dt);

@@ -17,17 +17,13 @@ void MainMenuState::initKeybinds() {
 
 
 void MainMenuState::initBackground() {
-  std::cout << "INITBACKGROUND" << std::endl;
   this->background.setSize(sf::Vector2f(static_cast<float>(this->window->getSize().x), static_cast<float>(this->window->getSize().y)));
 
   if(!this->backgroundTexture.loadFromFile("Resource/images/backgrounds/bg1.png")) {
 
     throw("ERROR::MAINMENUSTATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE");
   }
-
-
   this->background.setTexture(&this->backgroundTexture);
-  std::cout << "INITBACKGROUND END" << std::endl;
 
 }
 
@@ -81,14 +77,8 @@ void MainMenuState::render(sf::RenderTarget* target) {
 }
 
 void MainMenuState::updateInput(const float& dt) {
-  this->checkForQuit();
 
 
-}
-
-
-void MainMenuState::endState() {
-  std::cout << "MainMenuState endState " << std::endl;
 }
 
 
@@ -128,7 +118,7 @@ void MainMenuState::updateButtons() {
 
   // Quit the Game
   if(this->buttons["EXIT_STATE_BUTTONS"]->isPressed()) {
-    this->quit = true;
+    this->endState();
   }
 
 }

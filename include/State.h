@@ -32,7 +32,7 @@ protected:
   sf::Vector2i mousePosWindow;
   sf::Vector2f mousePosView;
 
-  std::vector<sf::Texture> textures;
+  std::map<std::string, sf::Texture> textures;
 
   // FUNCTIONS
   virtual void initKeybinds() = 0;
@@ -44,8 +44,8 @@ public:
   virtual ~State();
 
   const bool& getQuit() const;
-  virtual void checkForQuit();
-  virtual void endState() = 0;
+
+  virtual void endState();
   virtual void updateMousePosition();
   /* pure virtual */
   /* make sure when inheritence, inherited class must implement pure virtual function */
