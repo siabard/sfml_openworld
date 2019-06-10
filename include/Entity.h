@@ -6,6 +6,7 @@
 #include <iostream>
 #include <stack>
 #include <map>
+#include "MovementComponent.h"
 
 class Entity {
 private:
@@ -16,7 +17,7 @@ protected:
   sf::Texture* texture;
   sf::Sprite* sprite;
 
-  float movementSpeed;
+  MovementComponent* movementComponent;
 
 public:
   Entity();
@@ -24,6 +25,7 @@ public:
 
   // Component functions
   void createSprite(sf::Texture* Texture);
+  void createMovementComponent(const float maxVelocity);
 
   // functions
   virtual void setPosition(const float, const float);

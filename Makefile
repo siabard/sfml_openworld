@@ -25,9 +25,14 @@ button:
 player:
 	g++ $(CCFLAGS) Player.cpp -o player.o
 
-all: main game state gamestate entity mainmenustate button player
+movementcomponent:
+	g++ $(CCFLAGS) MovementComponent.cpp -o movementcomponent.o
+
+all: main game state gamestate entity mainmenustate button player movementcomponent
 	@echo "** Building the Game**"
-	g++ -o main entity.o mainmenustate.o gamestate.o state.o game.o button.o player.o main.o $(LIBS)
+	g++ -o main entity.o mainmenustate.o gamestate.o state.o game.o button.o player.o movementcomponent.o main.o $(LIBS)
+
+
 
 clean:
 	@echo "** Removing object files and excutables**"

@@ -5,6 +5,7 @@ void Player::initVariables() {
 
 }
 void Player::initComponents() {
+  this->createMovementComponent(20.f);
 }
 
 
