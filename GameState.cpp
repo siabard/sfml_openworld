@@ -1,4 +1,4 @@
-#include "GameState.h"
+#include "include/GameState.h"
 
 // Initiaizlier function
 void GameState::initKeybinds() {
@@ -16,14 +16,14 @@ void GameState::initKeybinds() {
 }
 
 void GameState::initTextures() {
-  if(!this->textures["PLAYER_IDLE"].loadFromFile("Resource/images/sprites/player/char.png")) {
-    throw "GAMESTATE::PLAYER_IDLE::CANNOTLOAD";
+  if(!this->textures["PLAYER_SHEET"].loadFromFile("Resource/images/sprites/player/player_sheet.png")) {
+    throw "GAMESTATE::PLAYER_SHEET::CANNOT_LOAD_PLAYER_SHEET";
   }
 
 }
 
 void GameState::initPlayers() {
-  this->player = new Player(0, 0, this->textures["PLAYER_IDLE"]);
+  this->player = new Player(0, 0, this->textures["PLAYER_SHEET"]);
 
 }
 

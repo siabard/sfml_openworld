@@ -1,9 +1,9 @@
 #ifndef __GAME_STATES_H__
 #define __GAME_STATES_H__
 
-#include "../include/State.h"
-#include "../include/Entity.h"
-#include "../include/Player.h"
+#include "State.h"
+#include "Entity.h"
+#include "Player.h"
 
 class GameState : public State {
 

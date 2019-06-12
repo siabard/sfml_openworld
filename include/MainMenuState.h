@@ -1,8 +1,8 @@
 #ifndef __MAIN_MENU_STATE__H__
 #define __MAIN_MENU_STATE__H__
 
-#include "../include/State.h"
-#include "../Resource/Button.h"
+#include "State.h"
+#include "Button.h"
 #include "GameState.h"
 #include <exception>
 

@@ -7,6 +7,7 @@
 #include <stack>
 #include <map>
 #include "MovementComponent.h"
+#include "AnimationComponent.h"
 
 class Entity {
 private:
@@ -17,7 +18,7 @@ protected:
   sf::Sprite sprite;
 
   MovementComponent* movementComponent;
-
+  AnimationComponent* animationComponent;
 public:
   Entity();
   virtual ~Entity();
@@ -25,6 +26,7 @@ public:
   // Component functions
   void setTexture(sf::Texture& Texture);
   void createMovementComponent(const float maxVelocity, const float acceleration, const float deceleration);
+  void createAnimationComponent(sf::Texture& texture_sheet);
 
   // functions
   virtual void setPosition(const float, const float);

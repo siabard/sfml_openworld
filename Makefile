@@ -15,7 +15,7 @@ $(PROJ_NAME): $(OBJS)
 	$(CC) -o $@ $^ $(LIBS)
 
 %.o: %.cpp
-	@echo Compiling and generating object $@ .. $(SOURCES)
+	@echo Compiling and generating object $@ ...
 	$(CC) $< $(CCFLAGS) -o $@
 
 clean:

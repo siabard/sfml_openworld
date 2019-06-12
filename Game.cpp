@@ -1,6 +1,6 @@
 #include "include/Game.h"
-#include "States/GameState.h"
-#include "States/MainMenuState.h"
+#include "include/GameState.h"
+#include "include/MainMenuState.h"
 
 // Static functions
 

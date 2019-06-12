@@ -5,6 +5,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
+
 class MovementComponent {
 private:
   sf::Sprite& sprite;
