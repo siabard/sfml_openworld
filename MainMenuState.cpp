@@ -90,7 +90,7 @@ void MainMenuState::initFonts() {
 }
 
 void MainMenuState::initButtons() {
-  this->buttons["GAME_STATE_BUTTONS"] = new Button(300, 480, 250, 50, &this->font, "New Game", 50,
+  this->buttons["GAME_STATE"] = new Button(300, 480, 250, 50, &this->font, "New Game", 50,
                                                    sf::Color(70, 70, 70, 200),  sf::Color(250, 250, 250, 250),  sf::Color(20, 20, 20, 50),
                                                    sf::Color(70, 70, 70, 0),  sf::Color(150, 150, 150, 0),  sf::Color(20, 20, 20, 0)
                                                    );
@@ -105,7 +105,7 @@ void MainMenuState::initButtons() {
                                              sf::Color(70, 70, 70, 0),  sf::Color(150, 150, 150, 0),  sf::Color(20, 20, 20, 0)
                                              );
 
-  this->buttons["EXIT_STATE_BUTTONS"] = new Button(300, 880, 250, 50, &this->font, "Quit", 50,
+  this->buttons["EXIT_STATE"] = new Button(300, 880, 250, 50, &this->font, "Quit", 50,
                                                    sf::Color(70, 70, 70, 200),  sf::Color(250, 250, 250, 250),  sf::Color(20, 20, 20, 50),
                                                    sf::Color(70, 70, 70, 0),  sf::Color(150, 150, 150, 0),  sf::Color(20, 20, 20, 0)
                                                    );
@@ -122,15 +122,22 @@ void MainMenuState::updateButtons() {
 
 
   // New Game
-  if(this->buttons["GAME_STATE_BUTTONS"]->isPressed()) {
+  if(this->buttons["GAME_STATE"]->isPressed()) {
     // State를 push할 수 있어야한다.
     this->states->push(new GameState(this->window, this->supportedKeys, this->states));
   }
 
 
+  // Settings
+  // Editor
+
+  if(this->buttons["EDITOR_STATE"]->isPressed()) {
+    // State를 push할 수 있어야한다.
+    this->states->push(new EditorState(this->window, this->supportedKeys, this->states));
+  }
 
   // Quit the Game
-  if(this->buttons["EXIT_STATE_BUTTONS"]->isPressed()) {
+  if(this->buttons["EXIT_STATE"]->isPressed()) {
     this->endState();
   }
 

@@ -1,24 +1,20 @@
-#ifndef __MAIN_MENU_STATE__H__
-#define __MAIN_MENU_STATE__H__
+#ifndef __EDITOR_STATE_H__
+#define __EDITOR_STATE_H__
 
 #include "State.h"
 #include "Button.h"
-#include "GameState.h"
-#include "EditorState.h"
-#include <exception>
 
-class MainMenuState :
-  public State {
+class EditorState
+  : public State {
+ public:
 
- private:
+private:
   // Variables
-  sf::Texture backgroundTexture;
-  sf::RectangleShape background;
   sf::Font font;
 
   std::map<std::string, Button*> buttons;
 
- protected:
+protected:
   // functions
   void initVariables();
   void initBackground();
@@ -26,9 +22,9 @@ class MainMenuState :
   void initKeybinds();
   void initButtons();
 
- public:
-  MainMenuState(sf::RenderWindow*,  std::map<std::string, int>*, std::stack<State*>*);
-  virtual ~MainMenuState();
+public:
+  EditorState(sf::RenderWindow*,  std::map<std::string, int>*, std::stack<State*>*);
+  virtual ~EditorState();
 
   // fucntions
   void updateButtons();
@@ -36,6 +32,7 @@ class MainMenuState :
   void update(const float& dt);
   void render(sf::RenderTarget* target = nullptr);
   void renderButtons(sf::RenderTarget* target = nullptr);
+
 };
 
 #endif

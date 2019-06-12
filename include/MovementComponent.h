@@ -5,6 +5,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
+enum movement_state {IDLE = 0, MOVING, MOVING_LEFT, MOVING_RIGHT, MOVING_UP, MOVING_DOWN};
 
 class MovementComponent {
 private:
@@ -24,6 +25,7 @@ public:
   // Accessors
   const sf::Vector2f& getVelocity() const;
   // functions
+  const bool getState(const short unsigned state) const;
 
   void move(const float, const float, const float&);
   void update(const float& );
