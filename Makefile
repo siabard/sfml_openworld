@@ -21,4 +21,6 @@ $(PROJ_NAME): $(OBJS)
 clean:
 	@echo Remove
 	@rm -rf $(OBJS) $(PROJ_NAME)
+	@find . -name "*~" -delete
+	@find . -name "*.o" -delete
 	@echo done!
