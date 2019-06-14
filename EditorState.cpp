@@ -54,7 +54,7 @@ void EditorState::render(sf::RenderTarget* target) {
   if(!target)
     target = this->window;
 
-  this->renderButtons(target);
+  this->renderButtons(*target);
 
   // REMOVE LATER!!
   // sf::Text mouseText;
@@ -99,7 +99,7 @@ void EditorState::updateButtons() {
 
 }
 
-void EditorState::renderButtons(sf::RenderTarget* target) {
+void EditorState::renderButtons(sf::RenderTarget& target) {
   for (auto &it : this->buttons) {
     it.second->render(target);
   }

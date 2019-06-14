@@ -38,7 +38,7 @@ public:
   // accessors
   const bool isPressed() const;
   // functions
-  void render(sf::RenderTarget* target);
+  void render(sf::RenderTarget& target);
   void update(const sf::Vector2f& mousePos);
 };
 
