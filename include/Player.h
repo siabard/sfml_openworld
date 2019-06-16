@@ -7,19 +7,22 @@ class Player :
   public Entity {
 private:
   // variables
-
+  bool attacking;
 
   // initializer function
   void initVariables();
   void initComponents();
 
 public:
-  void update(const float& dt);
 
   Player(float, float, sf::Texture&);
   virtual ~Player();
 
   // functions
+  void updateAttack();
+  void updateAnimation(const float& dt);
+  void update(const float& dt);
+
 };
 
 #endif
