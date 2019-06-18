@@ -44,7 +44,7 @@ EditorState::~EditorState() {
 }
 
 void EditorState::update(const float& dt) {
-  this->updateMousePosition();
+  this->updateMousePositions();
   this->updateInput(dt);
   this->updateButtons();
 

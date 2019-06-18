@@ -27,6 +27,9 @@ protected:
   std::map<std::string, int> keybinds;
 
   bool quit;
+  bool paused;
+  float keytime;
+  float keytimeMax;
 
   sf::Vector2i mousePosScreen;
   sf::Vector2i mousePosWindow;
@@ -43,10 +46,17 @@ public:
   State(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys,  std::stack<State*>* states);
   virtual ~State();
 
-  const bool& getQuit() const;
+  // Accessors
+  const bool getQuit() const;
+  const bool getKeytime();
 
-  virtual void endState();
-  virtual void updateMousePosition();
+  // functions
+  void endState();
+  void pauseState();
+  void unpauseState();
+
+  virtual void updateMousePositions();
+  virtual void updateKeytime(const float& dt);
   /* pure virtual */
   /* make sure when inheritence, inherited class must implement pure virtual function */
   /* end state function */
