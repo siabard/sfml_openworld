@@ -5,7 +5,7 @@
 #include <SFML/Network.hpp>
 #include <SFML/Window.hpp>
 #include <map>
-#include "Button.h"
+#include "Gui.h"
 
 class PauseMenu {
 private:
@@ -16,7 +16,7 @@ private:
   sf::RectangleShape container;
 
 
-  std::map<std::string, Button*> buttons;
+  std::map<std::string, gui::Button*> buttons;
 
   // private functions
 
@@ -26,7 +26,7 @@ public:
   virtual ~PauseMenu();
 
   // accessors
-  std::map<std::string, Button*>& getButtons();
+  std::map<std::string, gui::Button*>& getButtons();
 
   // Functions
   const bool isButtonPressed(const std::string key);

@@ -2,7 +2,7 @@
 #define __SETTINGS_STATE_H__
 
 #include "State.h"
-#include "Button.h"
+#include "Gui.h"
 #include <map>
 
 class SettingsState : public State {
@@ -13,7 +13,9 @@ private:
   sf::RectangleShape background;
   sf::Font font;
 
-  std::map<std::string, Button*> buttons;
+  std::map<std::string, gui::Button*> buttons;
+
+  gui::DropDownList* ddl;
 
   // functions
   void initVariables();

@@ -15,6 +15,8 @@ SettingsState::~SettingsState() {
       delete it->second;
     }
   }
+
+  delete this->ddl;
 }
 
 
@@ -58,10 +60,15 @@ void SettingsState::initFonts() {
 }
 
 void SettingsState::initButtons() {
-  this->buttons["EXIT_STATE"] = new Button(300.f, 880.f, 250.f, 50.f, &this->font, "Quit", 50,
+  this->buttons["EXIT_STATE"] = new gui::Button(300.f, 880.f, 250.f, 50.f, &this->font, "Quit", 50,
                                                    sf::Color(70, 70, 70, 200),  sf::Color(250, 250, 250, 250),  sf::Color(20, 20, 20, 50),
                                                    sf::Color(70, 70, 70, 0),  sf::Color(150, 150, 150, 0),  sf::Color(20, 20, 20, 0)
                                                    );
+
+  std::string li[] = {
+                      "123", "456", "789", "000", "999"
+  };
+  this->ddl = new gui::DropDownList(100, 100, 200, 50, font, li, 5, 0);
 
 }
 
@@ -73,6 +80,8 @@ void SettingsState::update(const float& dt) {
   this->updateInput(dt);
   this->updateButtons();
 
+
+  this->ddl->update(this->mousePosView, dt);
 }
 
 
@@ -89,6 +98,8 @@ void SettingsState::render(sf::RenderTarget* target) {
 
   target->draw(this->background);
   this->renderButtons(*target);
+
+  this->ddl->render(*target);
 
   // REMOVE LATER!!
   // sf::Text mouseText;
@@ -116,7 +127,6 @@ void SettingsState::updateButtons() {
   if(this->buttons["EXIT_STATE"]->isPressed()) {
     this->endState();
   }
-
 }
 
 void SettingsState::renderButtons(sf::RenderTarget& target) {

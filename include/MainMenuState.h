@@ -2,7 +2,7 @@
 #define __MAIN_MENU_STATE__H__
 
 #include "State.h"
-#include "Button.h"
+#include "Gui.h"
 #include "GameState.h"
 #include "EditorState.h"
 #include "SettingsState.h"
@@ -17,7 +17,7 @@ class MainMenuState :
   sf::RectangleShape background;
   sf::Font font;
 
-  std::map<std::string, Button*> buttons;
+  std::map<std::string, gui::Button*> buttons;
 
   // functions
   void initVariables();
