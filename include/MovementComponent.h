@@ -1,10 +1,6 @@
 #ifndef __MOVEMENT_COMPONENT_H__
 #define __MOVEMENT_COMPONENT_H__
 
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-
 enum movement_state {IDLE = 0, MOVING, MOVING_LEFT, MOVING_RIGHT, MOVING_UP, MOVING_DOWN};
 
 class MovementComponent {

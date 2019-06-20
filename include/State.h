@@ -1,18 +1,6 @@
 #ifndef __STATE_HPP_
 #define __STATE_HPP_
 
-#include <vector>
-#include <stack>
-#include <map>
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <fstream>
-#include <sstream>
-#include <SFML/Graphics.hpp>
-
-#include <map>
-#include <string>
 #include "Entity.h"
 #include <stack>
 

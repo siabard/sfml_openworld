@@ -3,8 +3,6 @@
 
 #include "State.h"
 #include "Gui.h"
-#include <map>
-#include <vector>
 
 class SettingsState : public State {
 

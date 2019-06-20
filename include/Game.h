@@ -1,21 +1,6 @@
 #ifndef __GAME_H__
 #define __GAME_H__
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
-#include <SFML/Window/ContextSettings.hpp>
-
-#include <ctime>
-#include <cstdlib>
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <map>
-#include <string>
-
 #include "State.h"
 
 class Game {

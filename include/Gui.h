@@ -1,15 +1,6 @@
 #ifndef __GUI_H__
 #define __GUI_H__
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/System.hpp>
-
-#include <ctime>
-#include <cstdlib>
-#include <sstream>
-#include <iostream>
-#include <vector>
 
 enum button_states {BTN_IDLE = 0, BTN_HOVER, BTN_ACTIVE};
 

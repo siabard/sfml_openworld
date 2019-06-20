@@ -1,3 +1,4 @@
+#include "include/stdafx.h"
 #include "include/AnimationComponent.h"
 
 AnimationComponent::AnimationComponent(sf::Sprite& sprite, sf::Texture& texture_sheet)

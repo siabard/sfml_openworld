@@ -1,12 +1,6 @@
 #ifndef __HITBOX_COMPONENT_H__
 #define __HITBOX_COMPONENT_H__
 
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Network.hpp>
-#include <SFML/Audio.hpp>
-
 class HitboxComponent {
 
 private:

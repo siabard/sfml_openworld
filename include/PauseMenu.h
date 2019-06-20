@@ -1,10 +1,6 @@
 #ifndef __PAUSE_MENU_H__
 #define __PAUSE_MENU_H__
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Network.hpp>
-#include <SFML/Window.hpp>
-#include <map>
 #include "Gui.h"
 
 class PauseMenu {

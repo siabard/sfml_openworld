@@ -6,7 +6,6 @@
 #include "GameState.h"
 #include "EditorState.h"
 #include "SettingsState.h"
-#include <exception>
 
 class MainMenuState :
   public State {

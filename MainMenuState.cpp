@@ -1,3 +1,4 @@
+#include "include/stdafx.h"
 #include "include/MainMenuState.h"
 
 // Initiaizlier Function

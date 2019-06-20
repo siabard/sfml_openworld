@@ -1,9 +1,14 @@
 PROJ_NAME=main
 CC=g++
-CCFLAGS=-Wall -g -c -fstack-protector
+CCFLAGS=-std=c++11 -Wall -g -c -fstack-protector
 LIBS=-lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system
 SOURCES :=  $(wildcard **/*.cpp) $(wildcard *.cpp)
 OBJS := $(patsubst %.cpp, %.o, $(SOURCES))
+
+
+PCH_SRC = include/stdafx.h
+PCH_HEADERS =
+PCH_OUT = include/stdafx.h.gch
 
 all: $(PROJ_NAME)
 	@echo Running application
@@ -14,9 +19,14 @@ $(PROJ_NAME): $(OBJS)
 	@echo linking...
 	$(CC) -o $@ $^ $(LIBS)
 
-%.o: %.cpp
+
+# Compiles your PCH
+$(PCH_OUT): $(PCH_SRC) $(PCH_HEADERS)
+	$(CC) $(CCFLAGS) -o $@ $<
+
+%.o: %.cpp $(PCH_OUT)
 	@echo Compiling and generating object $@ ...
-	$(CC) $< $(CCFLAGS) -o $@
+	$(CC) $< $(CCFLAGS) -include $(PCH_SRC) -o $@
 
 clean:
 	@echo Remove

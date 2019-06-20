@@ -1,11 +1,6 @@
 #ifndef __ENTITY_H__
 #define __ENTITY_H__
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Network.hpp>
-#include <iostream>
-#include <stack>
-#include <map>
 #include "MovementComponent.h"
 #include "AnimationComponent.h"
 #include "HitboxComponent.h"
