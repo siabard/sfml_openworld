@@ -39,7 +39,7 @@ namespace gui {
 
     // accessors
     const bool isPressed() const;
-    const std::string& getText() const;
+    const std::string getText() const;
 
     // functions
     void setText(const std::string text);

@@ -5,7 +5,7 @@ SettingsState::SettingsState(sf::RenderWindow* window,  std::map<std::string, in
   this->initBackground();
   this->initKeybinds();
   this->initFonts();
-  this->initButtons();
+  this->initGui();
 }
 
 SettingsState::~SettingsState() {
@@ -16,7 +16,14 @@ SettingsState::~SettingsState() {
     }
   }
 
-  delete this->ddl;
+
+  for(auto it = this->dropdownLists.begin(); it != this->dropdownLists.end(); ++it) {
+    if(it->second) {
+      delete it->second;
+    }
+  }
+
+
 }
 
 
@@ -59,16 +66,17 @@ void SettingsState::initFonts() {
 
 }
 
-void SettingsState::initButtons() {
-  this->buttons["EXIT_STATE"] = new gui::Button(300.f, 880.f, 250.f, 50.f, &this->font, "Quit", 50,
+void SettingsState::initGui() {
+  this->buttons["EXIT_STATE"] = new gui::Button(900.f, 880.f, 250.f, 50.f, &this->font, "Back", 50,
                                                    sf::Color(70, 70, 70, 200),  sf::Color(250, 250, 250, 250),  sf::Color(20, 20, 20, 50),
                                                    sf::Color(70, 70, 70, 0),  sf::Color(150, 150, 150, 0),  sf::Color(20, 20, 20, 0)
                                                    );
 
   std::string li[] = {
-                      "123", "456", "789", "000", "999"
+                      "1920x1080", "800x600", "640x480"
   };
-  this->ddl = new gui::DropDownList(100, 100, 200, 50, font, li, 5, 0);
+
+  this->dropdownLists["RESOLUTION"] = new gui::DropDownList(800, 450, 200, 50, font, li, 3, 0);
 
 }
 
@@ -78,10 +86,9 @@ void SettingsState::initButtons() {
 void SettingsState::update(const float& dt) {
   this->updateMousePositions();
   this->updateInput(dt);
-  this->updateButtons();
+  this->updateGui(dt);
 
 
-  this->ddl->update(this->mousePosView, dt);
 }
 
 
@@ -97,9 +104,8 @@ void SettingsState::render(sf::RenderTarget* target) {
     target = this->window;
 
   target->draw(this->background);
-  this->renderButtons(*target);
+  this->renderGui(*target);
 
-  this->ddl->render(*target);
 
   // REMOVE LATER!!
   // sf::Text mouseText;
@@ -114,7 +120,7 @@ void SettingsState::render(sf::RenderTarget* target) {
 
 }
 
-void SettingsState::updateButtons() {
+void SettingsState::updateGui(const float& dt) {
 
   /* update all the buttons in the state and hadle their functionality */
 
@@ -123,14 +129,26 @@ void SettingsState::updateButtons() {
   }
 
 
+  // Button functionality
   // Quit the Game
   if(this->buttons["EXIT_STATE"]->isPressed()) {
     this->endState();
   }
+
+  // Dropdown lists
+  for (auto &it : this->dropdownLists) {
+    it.second->update(this->mousePosView, dt);
+  }
+
+  // dropdown lists functionality
 }
 
-void SettingsState::renderButtons(sf::RenderTarget& target) {
+void SettingsState::renderGui(sf::RenderTarget& target) {
   for (auto &it : this->buttons) {
+    it.second->render(target);
+  }
+
+  for (auto &it : this->dropdownLists) {
     it.second->render(target);
   }
 

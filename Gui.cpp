@@ -85,7 +85,7 @@ void gui::Button::update(const sf::Vector2f& mousePos) {
 
 
 // Accessorsessors
-const std::string& gui::Button::getText() const {
+const std::string gui::Button::getText() const {
   return this->text.getString();
 }
 
@@ -98,18 +98,27 @@ void gui::Button::setText(const std::string text) {
 // DropDownList
 
 gui::DropDownList::DropDownList(float x, float y, float width, float height, sf::Font& font, std::string list[], unsigned numOfElements, unsigned default_index)
-  : font(font), showList(false), keytimeMax(1.f), keytime(0.f) {
+  : keytime(0.f), keytimeMax(1.f), font(font), showList(false) {
+
+  this->activeElement =
+    new gui::Button(
+                    x, y, width, height,
+                    &this->font, list[default_index], 12,
+                    sf::Color(255, 255, 255, 150),  sf::Color(255, 255, 255, 255),  sf::Color(20, 20, 20, 200),
+                    sf::Color(70, 70, 70, 200),  sf::Color(250, 250, 250, 200),  sf::Color(20, 20, 20, 200)
+                    );
+
+
   for(size_t i = 0; i < numOfElements; i++) {
     this->list.push_back(
                          new gui::Button(
-                                         x, y + (i * height), width, height,
-                                         &this->font, list[i], 50,
+                                         x, y + ((i+1) * height), width, height,
+                                         &this->font, list[i], 12,
                                          sf::Color(255, 255, 255, 150),  sf::Color(255, 255, 255, 255),  sf::Color(20, 20, 20, 200),
                                          sf::Color(70, 70, 70, 200),  sf::Color(250, 250, 250, 200),  sf::Color(20, 20, 20, 200)
                                          ));
   }
 
-  this->activeElement = new gui::Button(*this->list[default_index]);
 
 }
 
@@ -143,6 +152,11 @@ void gui::DropDownList::update(const sf::Vector2f& mousePos, const float& dt) {
   if(this->showList) {
     for(auto &i: this->list) {
       i->update(mousePos);
+
+      if(i->isPressed() && this->getKeytime()) {
+        this->showList = false;
+        this->activeElement->setText(i->getText());
+      }
     }
   }
 
