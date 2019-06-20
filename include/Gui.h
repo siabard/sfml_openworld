@@ -18,6 +18,7 @@ namespace gui {
   private:
 
     short unsigned buttonState;
+    short unsigned id;
 
     sf::RectangleShape shape;
     sf::Font* font;
@@ -31,18 +32,30 @@ namespace gui {
     sf::Color hoverColor;
     sf::Color activeColor;
 
+    sf::Color outlineIdleColor;
+    sf::Color outlineHoverColor;
+    sf::Color outlineActiveColor;
 
   public:
-    Button(float x, float y, float width, float height, sf::Font* font, std::string text, unsigned character_size, sf::Color text_idle_color,  sf::Color text_hover_color,  sf::Color text_active_color, sf::Color idle_color, sf::Color hover_color, sf::Color active_color );
+    Button(float x, float y, float width, float height,
+           sf::Font* font, std::string text, unsigned character_size,
+           sf::Color text_idle_color,  sf::Color text_hover_color,  sf::Color text_active_color,
+           sf::Color idle_color, sf::Color hover_color, sf::Color active_color,
+           sf::Color outline_idle_color = sf::Color::Transparent, sf::Color outline_hover_color = sf::Color::Transparent, sf::Color outline_active_color = sf::Color::Transparent,
+           short unsigned id = 0);
     virtual ~Button();
 
 
     // accessors
+    const short unsigned getId() const;
     const bool isPressed() const;
     const std::string getText() const;
 
-    // functions
+    // modifiers
     void setText(const std::string text);
+    void setId(const short unsigned id);
+
+    // functions
     void render(sf::RenderTarget& target);
     void update(const sf::Vector2f& mousePos);
   };
@@ -62,6 +75,8 @@ namespace gui {
     DropDownList(float x, float y,  float width, float height,  sf::Font& font, std::string list[], unsigned numOfElements, unsigned default_index);
     virtual ~DropDownList();
 
+    // accessors
+    const unsigned short getActiveElementId() const;
     // functions
     const bool getKeytime();
     void updateKeytime(const float& dt);

@@ -6,6 +6,7 @@ SettingsState::SettingsState(sf::RenderWindow* window,  std::map<std::string, in
   this->initKeybinds();
   this->initFonts();
   this->initGui();
+  this->initText();
 }
 
 SettingsState::~SettingsState() {
@@ -55,7 +56,9 @@ void SettingsState::initBackground() {
 
 }
 
-void SettingsState::initVariables() {}
+void SettingsState::initVariables() {
+  this->modes = sf::VideoMode::getFullscreenModes();
+}
 
 
 
@@ -67,21 +70,49 @@ void SettingsState::initFonts() {
 }
 
 void SettingsState::initGui() {
-  this->buttons["EXIT_STATE"] = new gui::Button(900.f, 880.f, 250.f, 50.f, &this->font, "Back", 50,
-                                                   sf::Color(70, 70, 70, 200),  sf::Color(250, 250, 250, 250),  sf::Color(20, 20, 20, 50),
-                                                   sf::Color(70, 70, 70, 0),  sf::Color(150, 150, 150, 0),  sf::Color(20, 20, 20, 0)
-                                                   );
+  this->buttons["BACK"] =
+    new gui::Button(1500.f, 880.f, 250.f, 50.f, &this->font, "Back", 50,
+                    sf::Color(70, 70, 70, 200),  sf::Color(250, 250, 250, 250),  sf::Color(20, 20, 20, 50),
+                    sf::Color(100, 100, 100, 0),  sf::Color(150, 150, 150, 0),  sf::Color(20, 20, 20, 0)
+                    );
+
+  this->buttons["APPLY"] =
+    new gui::Button(1300.f, 880.f, 250.f, 50.f, &this->font, "Apply", 50,
+                    sf::Color(70, 70, 70, 200),  sf::Color(250, 250, 250, 250),  sf::Color(20, 20, 20, 50),
+                    sf::Color(100, 100, 100, 0),  sf::Color(150, 150, 150, 0),  sf::Color(20, 20, 20, 0)
+                    );
+
+  std::vector<std::string> modes_str;
+
+  for(auto &i : this->modes) {
+    modes_str.push_back(std::to_string(i.width) + 'x' + std::to_string(i.height));
+  }
 
   std::string li[] = {
                       "1920x1080", "800x600", "640x480"
   };
-
-  this->dropdownLists["RESOLUTION"] = new gui::DropDownList(800, 450, 200, 50, font, li, 3, 0);
+  this->dropdownLists["RESOLUTION"] = new gui::DropDownList(800, 450, 200, 50, font, modes_str.data(), modes_str.size(), 0);
 
 }
 
 
+void SettingsState::initText() {
+  this->optionsText.setFont(font);
 
+  this->optionsText.setPosition(sf::Vector2f(100.f, 450.f));
+
+  this->optionsText.setCharacterSize(30);
+  this->optionsText.setFillColor(sf::Color(255, 255, 255, 200));
+
+  this->optionsText.setString(
+                              "TEST"
+                              // "Resolution " + "\n\n" +
+                              // "Fullscreen " + "\n\n" +
+                              // "Vsync " + "\n\n" +
+                              // "Antialiasing " + "\n\n"
+                              );
+
+}
 
 void SettingsState::update(const float& dt) {
   this->updateMousePositions();
@@ -106,6 +137,7 @@ void SettingsState::render(sf::RenderTarget* target) {
   target->draw(this->background);
   this->renderGui(*target);
 
+  target->draw(this->optionsText);
 
   // REMOVE LATER!!
   // sf::Text mouseText;
@@ -131,8 +163,14 @@ void SettingsState::updateGui(const float& dt) {
 
   // Button functionality
   // Quit the Game
-  if(this->buttons["EXIT_STATE"]->isPressed()) {
+  if(this->buttons["BACK"]->isPressed()) {
     this->endState();
+  }
+
+  // apply
+  if(this->buttons["APPLY"]->isPressed()) {
+    // TODO: Test Remove later
+    this->window->create(this->modes[this->dropdownLists["RESOLUTION"]->getActiveElementId()], "TEST", sf::Style::Default);
   }
 
   // Dropdown lists

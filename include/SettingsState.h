@@ -4,6 +4,7 @@
 #include "State.h"
 #include "Gui.h"
 #include <map>
+#include <vector>
 
 class SettingsState : public State {
 
@@ -16,12 +17,16 @@ private:
   std::map<std::string, gui::Button*> buttons;
   std::map<std::string, gui::DropDownList*> dropdownLists;
 
+  sf::Text optionsText;
+  std::vector<sf::VideoMode> modes;
+
   // functions
   void initVariables();
   void initBackground();
   void initFonts();
   void initKeybinds();
   void initGui();
+  void initText();
 
 public:
   SettingsState(sf::RenderWindow* window,  std::map<std::string, int>* supportedKeys, std::stack<State*>*  states);
