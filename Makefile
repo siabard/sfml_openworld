@@ -5,7 +5,7 @@ LIBS=-lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system
 SOURCES :=  $(wildcard **/*.cpp) $(wildcard *.cpp)
 OBJS := $(patsubst %.cpp, %.o, $(SOURCES))
 
-
+# precomipled headers
 PCH_SRC = include/stdafx.h
 PCH_HEADERS =
 PCH_OUT = include/stdafx.h.gch
