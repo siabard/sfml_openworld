@@ -3,6 +3,8 @@
 
 #include "State.h"
 #include "Gui.h"
+#include "PauseMenu.h"
+#include "TileMap.h"
 
 class EditorState
   : public State {
@@ -11,8 +13,10 @@ class EditorState
 private:
   // Variables
   sf::Font font;
-
+  PauseMenu* pmenu;
   std::map<std::string, gui::Button*> buttons;
+
+  TileMap map;
 
 protected:
   // functions
@@ -20,6 +24,7 @@ protected:
   void initBackground();
   void initFonts();
   void initKeybinds();
+  void initPauseMenu();
   void initButtons();
 
 public:
@@ -29,6 +34,7 @@ public:
   // fucntions
   void updateButtons();
   void updateInput(const float& dt);
+  void updatePauseMenuButtons();
   void update(const float& dt);
   void render(sf::RenderTarget* target = nullptr);
   void renderButtons(sf::RenderTarget& target);

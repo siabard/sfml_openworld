@@ -17,6 +17,14 @@ void EditorState::initKeybinds() {
 }
 
 
+void EditorState::initPauseMenu() {
+  this->pmenu = new PauseMenu(*this->window, this->font);
+
+  this->pmenu->addButton("QUIT", 800.f, "Quit");
+
+}
+
+
 void EditorState::initBackground() {
 
 }
@@ -25,11 +33,23 @@ void EditorState::initVariables() {
 }
 
 
+void EditorState::initFonts() {
+  if(!this->font.loadFromFile("fonts/DroidSans.ttf")) {
+    throw("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT");
+  }
+
+}
+
+void EditorState::initButtons() {
+}
+
+
 EditorState::EditorState(sf::RenderWindow* window,  std::map<std::string, int>* supportedKeys, std::stack<State*>*  states) : State(window, supportedKeys, states) {
   this->initVariables();
   this->initBackground();
   this->initKeybinds();
   this->initFonts();
+  this->initPauseMenu();
   this->initButtons();
 
 }
@@ -42,12 +62,22 @@ EditorState::~EditorState() {
     }
   }
 
+  delete this->pmenu;
+
 }
 
 void EditorState::update(const float& dt) {
   this->updateMousePositions();
   this->updateInput(dt);
-  this->updateButtons();
+  this->updateKeytime(dt);
+
+  if(!this->paused) {
+    this->updateButtons();
+  } else {
+    this->pmenu->update(this->mousePosView);
+    this->updatePauseMenuButtons();
+  }
+
 
 }
 
@@ -56,6 +86,12 @@ void EditorState::render(sf::RenderTarget* target) {
     target = this->window;
 
   this->renderButtons(*target);
+
+  this->map.render(*target);
+
+  if(this->paused) {
+    this->pmenu->render(*target);
+  }
 
   // REMOVE LATER!!
   // sf::Text mouseText;
@@ -71,23 +107,21 @@ void EditorState::render(sf::RenderTarget* target) {
 }
 
 void EditorState::updateInput(const float& dt) {
+  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeytime()) {
+    if(!this->paused)
+      this->pauseState();
+    else
+      this->unpauseState();
+  }
+}
 
-  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))))
+void EditorState::updatePauseMenuButtons() {
+  if(this->pmenu->isButtonPressed("QUIT"))
     this->endState();
 
-}
-
-
-void EditorState::initFonts() {
-  if(!this->font.loadFromFile("fonts/DroidSans.ttf")) {
-    throw("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT");
-  }
 
 }
 
-void EditorState::initButtons() {
-
-}
 
 void EditorState::updateButtons() {
 
