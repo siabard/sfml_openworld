@@ -1,7 +1,7 @@
 #include "include/stdafx.h"
 #include "include/SettingsState.h"
 
-SettingsState::SettingsState(sf::RenderWindow* window,  std::map<std::string, int>* supportedKeys, std::stack<State*>*  states) : State(window, supportedKeys, states) {
+SettingsState::SettingsState(sf::RenderWindow* window,  GraphicsSettings& gfxSettings, std::map<std::string, int>* supportedKeys, std::stack<State*>*  states) : State(window, supportedKeys, states), gfxSettings(gfxSettings) {
   this->initVariables();
   this->initBackground();
   this->initKeybinds();
@@ -171,7 +171,9 @@ void SettingsState::updateGui(const float& dt) {
   // apply
   if(this->buttons["APPLY"]->isPressed()) {
     // TODO: Test Remove later
-    this->window->create(this->modes[this->dropdownLists["RESOLUTION"]->getActiveElementId()], "TEST", sf::Style::Default);
+    this->gfxSettings.resolution = this->modes[this->dropdownLists["RESOLUTION"]->getActiveElementId()];
+
+    this->window->create(this->gfxSettings.resolution, this->gfxSettings.title, sf::Style::Default);
   }
 
   // Dropdown lists

@@ -6,12 +6,14 @@
 #include "GameState.h"
 #include "EditorState.h"
 #include "SettingsState.h"
+#include "GraphicsSettings.h"
 
 class MainMenuState :
   public State {
 
  private:
   // Variables
+  GraphicsSettings& gfxSettings;
   sf::Texture backgroundTexture;
   sf::RectangleShape background;
   sf::Font font;
@@ -26,7 +28,7 @@ class MainMenuState :
   void initButtons();
 
  public:
-  MainMenuState(sf::RenderWindow*,  std::map<std::string, int>*, std::stack<State*>*);
+  MainMenuState(sf::RenderWindow*, GraphicsSettings&, std::map<std::string, int>*, std::stack<State*>*);
   virtual ~MainMenuState();
 
   // fucntions

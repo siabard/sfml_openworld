@@ -2,15 +2,15 @@
 #define __GAME_H__
 
 #include "State.h"
+#include "GraphicsSettings.h"
 
 class Game {
  private:
   // Variables
+  GraphicsSettings gfxSettings;
   sf::RenderWindow* window;
   sf::Event sfEvent;
-  std::vector<sf::VideoMode> videoModes;
-  sf::ContextSettings windowSettings;
-  bool fullscreen;
+
   // Delta time
   sf::Clock dtClock;
   float dt;
@@ -24,6 +24,7 @@ class Game {
   void initWindow();
   void initStates();
   void initKeys();
+  void initGraphicsSettings();
 
  public:
 
