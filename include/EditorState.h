@@ -6,6 +6,15 @@
 #include "PauseMenu.h"
 #include "TileMap.h"
 
+/*
+ * forward declaration
+ */
+
+class State;
+class Gui;
+class PauseMenu;
+class TileMap;
+
 class EditorState
   : public State {
  public:
@@ -28,7 +37,7 @@ protected:
   void initButtons();
 
 public:
-  EditorState(sf::RenderWindow*,  std::map<std::string, int>*, std::stack<State*>*);
+  EditorState(StateData* state_data);
   virtual ~EditorState();
 
   // fucntions

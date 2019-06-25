@@ -27,7 +27,7 @@ protected:
   void initPauseMenu();
 
 public:
-  GameState(sf::RenderWindow*,  std::map<std::string, int>*, std::stack<State*>*);
+  GameState(StateData* state_date);
   virtual ~GameState();
 
   // functions

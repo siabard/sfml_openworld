@@ -31,7 +31,7 @@ void MainMenuState::initBackground() {
 void MainMenuState::initVariables() {}
 
 
-MainMenuState::MainMenuState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<std::string, int>* supportedKeys, std::stack<State*>*  states) : State(window, supportedKeys, states), gfxSettings(gfxSettings) {
+MainMenuState::MainMenuState(StateData* state_data) : State(state_data) {
   this->initVariables();
   this->initBackground();
   this->initKeybinds();
@@ -125,7 +125,7 @@ void MainMenuState::updateButtons() {
   // New Game
   if(this->buttons["GAME_STATE"]->isPressed()) {
     // State를 push할 수 있어야한다.
-    this->states->push(new GameState(this->window, this->supportedKeys, this->states));
+    this->states->push(new GameState(this->stateData));
   }
 
 
@@ -133,7 +133,7 @@ void MainMenuState::updateButtons() {
 
   if(this->buttons["SETTINGS_STATE"]->isPressed()) {
     // State를 push할 수 있어야한다.
-    this->states->push(new SettingsState(this->window, this->gfxSettings, this->supportedKeys, this->states));
+    this->states->push(new SettingsState(this->stateData));
   }
 
 
@@ -141,7 +141,7 @@ void MainMenuState::updateButtons() {
 
   if(this->buttons["EDITOR_STATE"]->isPressed()) {
     // State를 push할 수 있어야한다.
-    this->states->push(new EditorState(this->window, this->supportedKeys, this->states));
+    this->states->push(new EditorState(this->stateData));
   }
 
   // Quit the Game

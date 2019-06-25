@@ -4,10 +4,28 @@
 #include "Entity.h"
 #include <stack>
 
-class State {
+class State;
+class Player;
+class GraphicsSettings;
 
+class StateData {
+public:
+  StateData() {}
+
+  // Variables
+  float gridSize;
+  sf::RenderWindow* window;
+  GraphicsSettings* gfxSettings;
+  std::map<std::string, int>* supportedKeys;
+  std::stack<State*>* states;
+};
+
+
+class State {
+private:
 
 protected:
+  StateData* stateData;
   std::stack<State*>* states;
   sf::RenderWindow* window;
   std::map<std::string, int>* supportedKeys;
@@ -17,6 +35,7 @@ protected:
   bool paused;
   float keytime;
   float keytimeMax;
+  float gridSize;
 
   sf::Vector2i mousePosScreen;
   sf::Vector2i mousePosWindow;
@@ -30,7 +49,7 @@ protected:
 
 
 public:
-  State(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys,  std::stack<State*>* states);
+  State(StateData* state_data);
   virtual ~State();
 
   // Accessors
