@@ -13,7 +13,7 @@ private:
   Player*  player;
   sf::Texture texture;
 
-  TileMap map;
+  TileMap* tileMap;
 
 protected:
   sf::Font font;
@@ -25,6 +25,7 @@ protected:
   void initPlayers();
   void initFonts();
   void initPauseMenu();
+  void initTileMap();
 
 public:
   GameState(StateData* state_date);

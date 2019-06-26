@@ -43,6 +43,10 @@ void GameState::initFonts() {
 
 }
 
+void GameState::initTileMap() {
+  this->tileMap = new TileMap( this->stateData->gridSize, 10.f, 10.f);
+}
+
 // Constructor
 GameState::GameState(StateData* state_data) : State(state_data) {
   this->initKeybinds();
@@ -50,6 +54,7 @@ GameState::GameState(StateData* state_data) : State(state_data) {
   this->initTextures();
   this->initPauseMenu();
   this->initPlayers();
+  this->initTileMap();
 }
 
 GameState::~GameState() {
@@ -58,6 +63,8 @@ GameState::~GameState() {
   }
 
   delete this->pmenu;
+
+  delete this->tileMap;
 }
 
 void GameState::update(const float& dt) {
@@ -82,7 +89,7 @@ void GameState::render(sf::RenderTarget* target) {
   if(!target)
     target = this->window;
 
-  this->map.render(*target);
+  this->tileMap->render(*target);
   this->player->render(*target);
 
   if (this->paused) {
