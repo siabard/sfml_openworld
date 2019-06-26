@@ -5,6 +5,7 @@
 #include "Gui.h"
 #include "PauseMenu.h"
 #include "TileMap.h"
+#include "GraphicsSettings.h"
 
 /*
  * forward declaration
@@ -14,6 +15,7 @@ class State;
 class Gui;
 class PauseMenu;
 class TileMap;
+class GraphicsSettings;
 
 class EditorState
   : public State {
@@ -28,8 +30,11 @@ private:
 
   TileMap* tileMap;
 
+  sf::RectangleShape sidebar;
+
   sf::IntRect textureRect;
   sf::RectangleShape selectorRect;
+  gui::TextureSelector* textureSelector;
 
   // functions
   void initVariables();
@@ -51,7 +56,7 @@ public:
   void updateInput(const float& dt);
   void updateEditorInput(const float& dt);
   void updatePauseMenuButtons();
-  void updateGui();
+  void updateGui(const float& dt);
   void update(const float& dt);
   void render(sf::RenderTarget* target = nullptr);
   void renderGui(sf::RenderTarget& target);
