@@ -44,7 +44,7 @@ void GameState::initFonts() {
 }
 
 void GameState::initTileMap() {
-  this->tileMap = new TileMap( this->stateData->gridSize, 10.f, 10.f);
+  this->tileMap = new TileMap( this->stateData->gridSize, 10.f, 10.f, "Resource/images/tiles/tilesheet1.png");
 }
 
 // Constructor
