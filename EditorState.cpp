@@ -104,7 +104,12 @@ void EditorState::initGui() {
   this->selectorRect.setTexture(this->tileMap->getTileSheet());
   this->selectorRect.setTextureRect(this->textureRect);
 
-  this->textureSelector = new gui::TextureSelector(20.f, 20.f, 500.f, 500.f, this->stateData->gridSize, this->tileMap->getTileSheet(), this->font, "TS");
+  this->textureSelector = new gui::TextureSelector(20.f, 20.f, 500.f, 500.f,
+                                                   this->stateData->gridSize,
+                                                   this->tileMap->getTileSheet(),
+                                                   this->font, "TS");
+
+
 }
 
 EditorState::~EditorState() {
@@ -174,14 +179,14 @@ void EditorState::updateEditorInput(const float& dt) {
 
   // Move view
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_UP")))) {
-      this->view.move(0.f, -this->cameraSpeed * dt);
-    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_DOWN")))) {
-      this->view.move(0.f, this->cameraSpeed * dt);
-    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_LEFT")))) {
-      this->view.move(-this->cameraSpeed * dt, 0.f);
-    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_RIGHT")))) {
-      this->view.move(this->cameraSpeed * dt, 0.f);
-    }
+    this->view.move(0.f, -this->cameraSpeed * dt);
+  } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_DOWN")))) {
+    this->view.move(0.f, this->cameraSpeed * dt);
+  } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_LEFT")))) {
+    this->view.move(-this->cameraSpeed * dt, 0.f);
+  } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_RIGHT")))) {
+    this->view.move(this->cameraSpeed * dt, 0.f);
+  }
 
 
   // Add a Tile

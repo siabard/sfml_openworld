@@ -29,6 +29,7 @@ protected:
   PauseMenu* pmenu;
 
   // functions
+  void initDeferredRender();
   void initView();
   void initKeybinds();
   void initTextures();
@@ -46,6 +47,7 @@ public:
   void updateInput(const float& dt);
   void updatePlayerInput(const float& dt);
   void update(const float& dt);
+  void updateTileMap(const float& dt);
   void updatePauseMenuButtons();
   void render(sf::RenderTarget* target = nullptr);
 };
