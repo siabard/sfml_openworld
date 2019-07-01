@@ -2,6 +2,20 @@
 #include "include/GameState.h"
 
 // Initiaizlier function
+
+void GameState::initView() {
+  this->view.setSize(sf::Vector2f(
+                                  this->stateData->gfxSettings->resolution.width,
+                                  this->stateData->gfxSettings->resolution.height
+                                  ));
+
+  this->view.setCenter(sf::Vector2f(
+                                  this->stateData->gfxSettings->resolution.width / 2.f,
+                                  this->stateData->gfxSettings->resolution.height / 2.f
+                                  ));
+
+}
+
 void GameState::initKeybinds() {
   std::ifstream ifs("config/gamestate_keybinds.ini");
   if(ifs.is_open()) {
@@ -45,10 +59,12 @@ void GameState::initFonts() {
 
 void GameState::initTileMap() {
   this->tileMap = new TileMap( this->stateData->gridSize, 10.f, 10.f, "Resource/images/tiles/tilesheet1.png");
+  this->tileMap->loadFromFile("text.slmp");
 }
 
 // Constructor
 GameState::GameState(StateData* state_data) : State(state_data) {
+  this->initView();
   this->initKeybinds();
   this->initFonts();
   this->initTextures();
@@ -67,19 +83,25 @@ GameState::~GameState() {
   delete this->tileMap;
 }
 
+// functions
+void GameState::updateView(const float& dt) {
+  this->view.setCenter( this->player->getPosition());
+}
+
 void GameState::update(const float& dt) {
-  this->updateMousePositions();
+  this->updateMousePositions(&this->view);
   this->updateInput(dt);
   this->updateKeytime(dt);
 
   if(!this->paused) {
     // Unpaused update
+    this->updateView(dt);
     this->updatePlayerInput(dt);
     this->player->update(dt);
 
   } else {
     // paused update
-    this->pmenu->update(this->mousePosView);
+    this->pmenu->update(this->mousePosWindow);
     this->updatePauseMenuButtons();
 
   }
@@ -89,12 +111,16 @@ void GameState::render(sf::RenderTarget* target) {
   if(!target)
     target = this->window;
 
+  target->setView(this->view);
   this->tileMap->render(*target);
   this->player->render(*target);
 
+
   if (this->paused) {
-    this->pmenu->render(*target);
     // Pause menu render
+    target->setView(this->window->getDefaultView());
+    this->pmenu->render(*target);
+
 
   }
 }

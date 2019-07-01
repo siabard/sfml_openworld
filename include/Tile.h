@@ -1,7 +1,7 @@
 #ifndef __TILE_H__
 #define __TILE_H__
 
-enum TileTypes {DEFAULT = 0, DAMAGING};
+enum TileTypes {DEFAULT = 0, DAMAGING, LIMIT};
 
 class Tile {
 private:

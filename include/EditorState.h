@@ -23,6 +23,7 @@ class EditorState
 
 private:
   // Variables
+  sf::View view;
   sf::Font font;
   sf::Text cursorText;
   PauseMenu* pmenu;
@@ -32,12 +33,18 @@ private:
 
   sf::RectangleShape sidebar;
 
-  sf::IntRect textureRect;
   sf::RectangleShape selectorRect;
   gui::TextureSelector* textureSelector;
 
+  sf::IntRect textureRect;
+  bool collision;
+  short type;
+  float cameraSpeed;
+
   // functions
+
   void initVariables();
+  void initView();
   void initBackground();
   void initFonts();
   void initText();

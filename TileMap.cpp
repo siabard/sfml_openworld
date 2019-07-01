@@ -66,7 +66,7 @@ void TileMap::render(sf::RenderTarget& target) {
   }
 }
 
-void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z, const sf::IntRect& texture_rect) {
+void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z, const sf::IntRect& texture_rect, const bool collision, const short type) {
   /* Take three indices from the mouse position in the grid and add a tile to that position if the internal tilemap array allows it */
 
   if( x < this->maxSize.x &&
@@ -77,7 +77,7 @@ void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z, cons
       z >= 0
       ) {
     if (this->map[x][y][z] == nullptr) { // OK to add
-      this->map[x][y][z] = new Tile(x, y, this->gridSizeF, this->tileSheet, texture_rect);
+      this->map[x][y][z] = new Tile(x, y, this->gridSizeF, this->tileSheet, texture_rect, collision, type);
     }
   }
 

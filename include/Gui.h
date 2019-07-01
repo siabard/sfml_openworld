@@ -48,7 +48,7 @@ namespace gui {
 
     // functions
     void render(sf::RenderTarget& target);
-    void update(const sf::Vector2f& mousePos);
+    void update(const sf::Vector2i& mousePos);
   };
 
   class DropDownList {
@@ -72,7 +72,7 @@ namespace gui {
     const bool getKeytime();
     void updateKeytime(const float& dt);
     void render(sf::RenderTarget& target);
-    void update(const sf::Vector2f& mousePos, const float& dt);
+    void update(const sf::Vector2i& mousePos, const float& dt);
 
   };
 

@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include <stack>
+#include "GraphicsSettings.h"
 
 class State;
 class Player;
@@ -62,7 +63,7 @@ public:
   void pauseState();
   void unpauseState();
 
-  virtual void updateMousePositions();
+  virtual void updateMousePositions(sf::View* view = nullptr);
   virtual void updateKeytime(const float& dt);
   /* pure virtual */
   /* make sure when inheritence, inherited class must implement pure virtual function */
