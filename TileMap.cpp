@@ -239,16 +239,16 @@ void TileMap::updateCollision(Entity* entity) {
   // WORLD BOUNDS
   if(entity->getPosition().x < 0.f) {
     entity->setPosition(0.f, entity->getPosition().y);
-  } else  if(entity->getPosition().x > this->maxSizeWorld.x) {
-    entity->setPosition(this->maxSizeWorld.x ,
+  } else  if(entity->getPosition().x + entity->getGlobalBounds().width > this->maxSizeWorld.x) {
+    entity->setPosition(this->maxSizeWorld.x - entity->getGlobalBounds().width ,
                         entity->getPosition().y);
   }
 
   if(entity->getPosition().y < 0.f) {
     entity->setPosition(entity->getPosition().x, 0.f);
-  } else  if(entity->getPosition().y > this->maxSizeWorld.y) {
+  } else  if(entity->getPosition().y + entity->getGlobalBounds().height > this->maxSizeWorld.y) {
     entity->setPosition(entity->getPosition().x,
-                        this->maxSizeWorld.y
+                        this->maxSizeWorld.y - entity->getGlobalBounds().height
                         );
   }
 }
