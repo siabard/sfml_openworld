@@ -15,7 +15,15 @@ private:
   sf::Texture tileSheet;
   std::string textureFile;
   sf::RectangleShape collisionBox;
+
   void clear();
+
+  // Culling
+  int fromX;
+  int toX;
+  int fromY;
+  int toY;
+  int layer;
 
 public:
   TileMap(const float gridSize, unsigned width, unsigned height, std::string texture_file);

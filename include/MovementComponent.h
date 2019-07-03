@@ -21,8 +21,12 @@ public:
   // Accessors
   const float& getMaxVelocity() const;
   const sf::Vector2f& getVelocity() const;
+
   // functions
   const bool getState(const short unsigned state) const;
+  void stopVelocity();
+  void stopVelocityX();
+  void stopVelocityY();
 
   void move(const float, const float, const float&);
   void update(const float& );

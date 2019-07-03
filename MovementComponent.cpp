@@ -67,6 +67,12 @@ void MovementComponent::move(const float dir_x, const float dir_y, const float& 
 
 }
 
+
+const float& MovementComponent::getMaxVelocity() const {
+  return this->maxVelocity;
+}
+
+
 const sf::Vector2f& MovementComponent::getVelocity() const {
   return this->velocity;
 }
@@ -111,6 +117,21 @@ const bool MovementComponent::getState(const short unsigned state) const {
 }
 
 
-const float& MovementComponent::getMaxVelocity() const {
-  return this->maxVelocity;
+void MovementComponent::stopVelocity() {
+  /* Resets the velocity to 0. */
+
+  this->velocity.x = 0.f;
+  this->velocity.y = 0.f;
+}
+
+void MovementComponent::stopVelocityX() {
+  /* Resets the velocity x to 0. */
+
+  this->velocity.x = 0.f;
+}
+
+void MovementComponent::stopVelocityY() {
+  /* Resets the velocity y to 0. */
+
+  this->velocity.y = 0.f;
 }
