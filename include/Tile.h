@@ -19,6 +19,7 @@ public:
   // accessors
   const bool getCollision() const;
   const sf::Vector2f& getPosition() const;
+  const sf::FloatRect getGlobalBounds() const;
   const bool intersects(const sf::FloatRect& bounds) const;
   const std::string getAsString() const;
   // functions
