@@ -88,6 +88,14 @@ const sf::Vector2u Entity::getGridPosition(const unsigned gridSizeU) const {
 
 }
 
+const sf::FloatRect& Entity::getNextPositionBounds(const float& dt) const {
+  if(this->hitboxComponent && this->movementComponent) {
+    return this->hitboxComponent->getNextPosition(this->movementComponent->getVelocity() * dt);
+  }
+
+  return sf::FloatRect();
+}
+
 void Entity::setPosition(const float x, const float y) {
   if(this->hitboxComponent)
     this->hitboxComponent->setPosition(x, y);

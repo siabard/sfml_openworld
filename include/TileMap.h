@@ -43,7 +43,7 @@ public:
   void loadFromFile(const std::string file_name);
   void saveToFile(const std::string file_name);
 
-  void updateCollision(Entity* entity);
+  void updateCollision(Entity* entity, const float& dt);
 };
 
 #endif
