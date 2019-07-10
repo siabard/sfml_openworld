@@ -19,7 +19,7 @@ void  MovementComponent::update(const float& dt) {
       this->velocity.x = this->maxVelocity;
 
     // X Deaceleration
-    this->velocity.x -= this->deceleration;
+    this->velocity.x -= this->deceleration * dt;
 
     // Bound Condition
     if(this->velocity.x < 0.f)
@@ -30,7 +30,7 @@ void  MovementComponent::update(const float& dt) {
       this->velocity.x = -this->maxVelocity;
 
     // X Deaceleration
-    this->velocity.x += this->deceleration;
+    this->velocity.x += this->deceleration * dt;
 
     // Bound Condition
     if(this->velocity.x > 0.f)
@@ -42,7 +42,7 @@ void  MovementComponent::update(const float& dt) {
     if(this->velocity.y > this->maxVelocity)
       this->velocity.y = this->maxVelocity;
 
-    this->velocity.y -= this->deceleration;
+    this->velocity.y -= this->deceleration * dt;
 
     if(this->velocity.y < 0.f)
       this->velocity.y = 0.f;
@@ -50,7 +50,7 @@ void  MovementComponent::update(const float& dt) {
     if(this->velocity.y < -this->maxVelocity)
       this->velocity.y = -this->maxVelocity;
 
-    this->velocity.y += this->deceleration;
+    this->velocity.y += this->deceleration * dt;
 
     if(this->velocity.y > 0.f)
       this->velocity.y = 0.f;
@@ -62,8 +62,8 @@ void  MovementComponent::update(const float& dt) {
 void MovementComponent::move(const float dir_x, const float dir_y, const float& dt) {
   // Acceleration a sprite until it reaches the max velocity
 
-  this->velocity.x += this->acceleration * dir_x;
-  this->velocity.y += this->acceleration * dir_y;
+  this->velocity.x += this->acceleration * dir_x * dt;
+  this->velocity.y += this->acceleration * dir_y * dt;
 
 }
 

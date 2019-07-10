@@ -33,11 +33,10 @@ void EditorState::initBackground() {
 
 void EditorState::initVariables() {
   this->textureRect = sf::IntRect(0, 0, static_cast<int>(this->stateData->gridSize), static_cast<int>(this->stateData->gridSize));
-
-
   this->collision = false;
   this->type = TileTypes::DEFAULT;
   this->cameraSpeed = 100.f;
+  this->layer = 0;
 
 }
 
@@ -143,7 +142,8 @@ void EditorState::updateGui(const float& dt) {
     << this->mousePosGrid.x << " " << this->mousePosGrid.y << std::endl
     << this->textureRect.left << " " << this->textureRect.top << std::endl
     << "Collisition: " << this->collision << std::endl
-    << "Type: " << this->type << std::endl
+    << "Type: "  << this->type << std::endl
+    << "tiles: "  << this->tileMap->getLayerSize(this->mousePosGrid.x, this->mousePosGrid.y, this->layer) << std::endl
     ;
   this->cursorText.setString(ss.str());
 
@@ -275,7 +275,7 @@ void EditorState::render(sf::RenderTarget* target) {
     target = this->window;
 
   target->setView(this->view);
-  this->tileMap->render(*target);
+  this->tileMap->render(*target, this->mousePosGrid);
 
   target->setView(this->window->getDefaultView());
   this->renderButtons(*target);
