@@ -110,7 +110,14 @@ void TileMap::render(sf::RenderTarget& target, const sf::Vector2i& gridPosition)
 
         if(!this->map[x][y][this->layer].empty()) {
           for(size_t k = 0; k < this->map[x][y][this->layer].size(); k++) {
-            this->map[x][y][this->layer][k]->render(target);
+
+            if(this->map[x][y][this->layer][k]->getType() == TileTypes::DOODAD) {
+              this->deferredRenderStack.push(this->map[x][y][this->layer][k]);
+            } else {
+              this->map[x][y][this->layer][k]->render(target);
+            }
+
+
             if(this->map[x][y][this->layer][k]->getCollision()) {
               this->collisionBox.setPosition(this->map[x][y][this->layer][k]->getPosition());
               target.draw(this->collisionBox);
@@ -120,6 +127,13 @@ void TileMap::render(sf::RenderTarget& target, const sf::Vector2i& gridPosition)
       }
     }
 
+}
+
+void TileMap::renderDeferred(sf::RenderTarget& target) {
+  while(!this->deferredRenderStack.empty()) {
+    this->deferredRenderStack.top()->render(target);
+    this->deferredRenderStack.pop();
+  }
 }
 
 void TileMap::addTile(const int x, const int y, const int z, const sf::IntRect& texture_rect, const bool collision, const short type) {

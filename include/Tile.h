@@ -1,7 +1,7 @@
 #ifndef __TILE_H__
 #define __TILE_H__
 
-enum TileTypes {DEFAULT = 0, DAMAGING, LIMIT};
+enum TileTypes {DEFAULT = 0, DAMAGING, DOODAD, LIMIT};
 
 class Tile {
 private:
@@ -17,6 +17,8 @@ public:
   virtual ~Tile();
 
   // accessors
+
+  const short& getType() const;
   const bool getCollision() const;
   const sf::Vector2f& getPosition() const;
   const sf::FloatRect getGlobalBounds() const;

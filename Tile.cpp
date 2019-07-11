@@ -22,6 +22,10 @@ Tile::Tile(int x, int y, float gridSizeF, const sf::Texture& texture, const sf::
 
 Tile::~Tile() {}
 
+const short& Tile::getType() const {
+  return this->type;
+}
+
 const bool Tile::getCollision() const {
   return this->collision;
 }

@@ -70,7 +70,7 @@ void GameState::initFonts() {
 }
 
 void GameState::initTileMap() {
-  this->tileMap = new TileMap( this->stateData->gridSize, 10.f, 10.f, "Resource/images/tiles/tilesheet1.png");
+  this->tileMap = new TileMap( this->stateData->gridSize, 1000, 1000, "Resource/images/tiles/tilesheet1.png");
   this->tileMap->loadFromFile("text.slmp");
 }
 
@@ -164,7 +164,7 @@ void GameState::render(sf::RenderTarget* target) {
   this->renderTexture.setView(this->view);
   this->tileMap->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)));
   this->player->render(this->renderTexture);
-
+  this->tileMap->renderDeferred(this->renderTexture);
   if (this->paused) {
     // Pause menu render
     this->renderTexture.setView(this->renderTexture.getDefaultView());
