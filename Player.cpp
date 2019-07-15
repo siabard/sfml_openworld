@@ -18,6 +18,7 @@ Player::Player(float x, float y, sf::Texture& texture) {
   this->createMovementComponent(350.f, 1500.f, 500.f);
   this->createHitboxComponent(sprite, 86.f, 74.f, 86.f, 111.f);
   this->createAnimationComponent(texture);
+  this->createAttributeComponent(0);
 
   this->animationComponent->addAnimation("IDLE", 10.f, 0, 0, 13, 0, 192, 192);
   this->animationComponent->addAnimation("WALK", 7.f, 0, 1, 11, 1, 192, 192);
@@ -91,6 +92,7 @@ void Player::update(const float& dt) {
   this->movementComponent->update(dt);
 
   this->updateAttack();
+
   this->updateAnimation(dt);
 
   this->hitboxComponent->update();
