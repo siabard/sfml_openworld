@@ -62,6 +62,10 @@ void GameState::initPlayers() {
 
 }
 
+void GameState::initPlayerGUI() {
+  this->playerGUI = new PlayerGUI(this->player);
+}
+
 void GameState::initFonts() {
   if(!this->font.loadFromFile("fonts/DroidSans.ttf")) {
     throw("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT");
@@ -83,13 +87,18 @@ GameState::GameState(StateData* state_data) : State(state_data) {
   this->initTextures();
   this->initPauseMenu();
   this->initPlayers();
+  this->initPlayerGUI();
   this->initTileMap();
 }
 
 GameState::~GameState() {
+  if(this->playerGUI) {
+    delete this->playerGUI;
+  }
   if(this->player) {
     delete this->player;
   }
+
 
   delete this->pmenu;
 
@@ -112,6 +121,7 @@ void GameState::update(const float& dt) {
     this->updatePlayerInput(dt);
     this->updateTileMap(dt);
     this->player->update(dt);
+    this->playerGUI->update(dt);
   } else {
     // paused update
     this->pmenu->update(this->mousePosWindow);
@@ -130,6 +140,10 @@ void GameState::updateInput(const float& dt) {
   }
 }
 
+void GameState::updatePlayerGUI(const float& dt) {
+  this->playerGUI->update(dt);
+}
+
 void GameState::updatePlayerInput(const float& dt) {
   // Update player input
   if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT"))))
@@ -138,11 +152,17 @@ void GameState::updatePlayerInput(const float& dt) {
   if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT"))))
     this->player->move(1.f, 0.f, dt);
 
-  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP"))))
+  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP")))) {
+    if(this->getKeytime())
+      this->player->gainHP(1);
     this->player->move(0.f, -1.f, dt);
+  }
 
-  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN"))))
+  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))) {
     this->player->move(0.f, 1.f, dt);
+    if(this->getKeytime())
+      this->player->loseHP(1);
+  }
 
 }
 
@@ -165,9 +185,14 @@ void GameState::render(sf::RenderTarget* target) {
   this->tileMap->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)));
   this->player->render(this->renderTexture);
   this->tileMap->renderDeferred(this->renderTexture);
+
+  // Render GUI
+  this->renderTexture.setView(this->renderTexture.getDefaultView());
+  this->playerGUI->render(this->renderTexture);
+
   if (this->paused) {
     // Pause menu render
-    this->renderTexture.setView(this->renderTexture.getDefaultView());
+    // this->renderTexture.setView(this->renderTexture.getDefaultView());
     this->pmenu->render(this->renderTexture);
   }
 

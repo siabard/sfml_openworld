@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "PauseMenu.h"
 #include "TileMap.h"
+#include "PlayerGUI.h"
 
 class PauseMenu;
 class Player;
@@ -20,6 +21,7 @@ private:
   sf::Sprite renderSprite;
 
   Player*  player;
+  PlayerGUI* playerGUI;
   sf::Texture texture;
 
   TileMap* tileMap;
@@ -34,6 +36,7 @@ protected:
   void initKeybinds();
   void initTextures();
   void initPlayers();
+  void initPlayerGUI();
   void initFonts();
   void initPauseMenu();
   void initTileMap();
@@ -46,6 +49,7 @@ public:
   void updateView(const float& dt);
   void updateInput(const float& dt);
   void updatePlayerInput(const float& dt);
+  void updatePlayerGUI(const float& dt);
   void update(const float& dt);
   void updateTileMap(const float& dt);
   void updatePauseMenuButtons();

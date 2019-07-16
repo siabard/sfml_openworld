@@ -18,7 +18,7 @@ Player::Player(float x, float y, sf::Texture& texture) {
   this->createMovementComponent(350.f, 1500.f, 500.f);
   this->createHitboxComponent(sprite, 86.f, 74.f, 86.f, 111.f);
   this->createAnimationComponent(texture);
-  this->createAttributeComponent(0);
+  this->createAttributeComponent(1);
 
   this->animationComponent->addAnimation("IDLE", 10.f, 0, 0, 13, 0, 192, 192);
   this->animationComponent->addAnimation("WALK", 7.f, 0, 1, 11, 1, 192, 192);
@@ -26,6 +26,39 @@ Player::Player(float x, float y, sf::Texture& texture) {
 }
 
 Player::~Player() {}
+
+// accessors
+AttributeComponent* Player::getAttributeComponent() {
+  return this->attributeComponent;
+}
+
+// functions
+
+void Player::loseHP(const int hp) {
+  this->attributeComponent->hp -= hp;
+
+  if(this->attributeComponent->hp < 0)
+    this->attributeComponent->hp = 0;
+}
+
+void Player::gainHP(const int hp) {
+  this->attributeComponent->hp += hp;
+  if(this->attributeComponent->hp > this->attributeComponent->hpMax)
+    this->attributeComponent->hp = this->attributeComponent->hpMax;
+}
+
+void Player::loseEXP(const unsigned exp) {
+  this->attributeComponent->exp -= exp;
+
+  if(this->attributeComponent->exp < 0) {
+    this->attributeComponent->exp = 0;
+  }
+}
+
+void Player::gainEXP(const unsigned exp) {
+  this->attributeComponent->gainExp(exp);
+
+}
 
 void Player::updateAttack() {
 
