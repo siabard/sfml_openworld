@@ -43,6 +43,7 @@ protected:
   sf::Vector2f mousePosView;
   sf::Vector2i mousePosGrid;
 
+  // Resources
   std::map<std::string, sf::Texture> textures;
 
   // FUNCTIONS
@@ -59,6 +60,11 @@ public:
   const bool getKeytime();
 
   // functions
+  // percent to pixels
+  const float p2pX(const float perc) const;
+  const float p2pY(const float perc) const;
+  const unsigned calcCharSize() const;
+
   void endState();
   void pauseState();
   void unpauseState();

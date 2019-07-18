@@ -38,6 +38,38 @@ void State::updateMousePositions(sf::View* view) {
   this->window->setView(this->window->getDefaultView());
 }
 
+/**
+ * Converts a percentage value to pixels relative to the current resolution in the x-axis
+ * @param perc the percentage value
+ * @return the calculated pixel value
+ */
+const float State::p2pX(const float perc) const {
+  return std::floor(static_cast<float>(this->stateData->gfxSettings->resolution.width * (perc / 100.f)));
+}
+
+/**
+ * Converts a percentage value to pixels relative to the current resolution in the y-axis
+ *
+ * @param perc the percentage value
+ * @return the calculated pixel value
+ */
+const float State::p2pY(const float perc) const {
+  return std::floor(static_cast<float>(this->stateData->gfxSettings->resolution.height * (perc / 100.f)));
+}
+
+
+/**
+ * Converts a percentage value to size relative to the current resolution
+ *
+ * @return the calculated font size
+ */
+const unsigned State::calcCharSize() const {
+  return
+    static_cast<unsigned>(this->stateData->gfxSettings->resolution.width + this->stateData->gfxSettings->resolution.height)
+    / 60
+    ;
+}
+
 void State::endState() {
   this->quit = true;
 }

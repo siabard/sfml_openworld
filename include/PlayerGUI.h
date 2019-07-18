@@ -9,7 +9,17 @@ class PlayerGUI {
 
   sf::Font font;
 
+  // Level Bar
+  std::string levelBarString;
+  sf::Text levelBarText;
+  sf::RectangleShape levelBarBack;
+
   // Exp bar
+  std::string expBarString;
+  float expBarMaxWidth;
+  sf::Text expBarText;
+  sf::RectangleShape expBarBack;
+  sf::RectangleShape expBarInner;
 
   // HP bar
   std::string hpBarString;
@@ -19,6 +29,8 @@ class PlayerGUI {
   sf::RectangleShape hpBarInner;
 
   void initFont();
+  void initLevelBar();
+  void initEXPBar();
   void initHpBar();
 
  public:
@@ -26,9 +38,13 @@ class PlayerGUI {
   virtual ~PlayerGUI();
 
   // functions
+  void updateLevelBar();
+  void updateEXPBar();
   void updateHpBar();
   void update(const float& dt);
 
+  void renderLevelBar(sf::RenderTarget& target);
+  void renderEXPBar(sf::RenderTarget& target);
   void renderHpBar(sf::RenderTarget& target);
   void render(sf::RenderTarget& target);
 };
