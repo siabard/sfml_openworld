@@ -36,7 +36,8 @@ MainMenuState::MainMenuState(StateData* state_data) : State(state_data) {
   this->initBackground();
   this->initKeybinds();
   this->initFonts();
-  this->initButtons();
+  this->initGui();
+  this->resetGui();
 
 }
 
@@ -90,39 +91,50 @@ void MainMenuState::initFonts() {
 
 }
 
-void MainMenuState::initButtons() {
+void MainMenuState::initGui() {
+  const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
   this->buttons["GAME_STATE"] =
-    new gui::Button(this->p2pX(15.6f), this->p2pY(44.4f),
-                    this->p2pX(13.0f), this->p2pY(6.f),
-                    &this->font, "New Game", this->calcCharSize(),
+    new gui::Button(gui::p2pX(15.6f, vm), gui::p2pY(44.4f, vm),
+                    gui::p2pX(13.0f, vm), gui::p2pY(6.f, vm),
+                    &this->font, "New Game", gui::calcCharSize(vm),
                     sf::Color(70, 70, 70, 200),  sf::Color(250, 250, 250, 250),  sf::Color(20, 20, 20, 50),
                     sf::Color(70, 70, 70, 0),  sf::Color(150, 150, 150, 0),  sf::Color(20, 20, 20, 0)
                     );
 
   this->buttons["SETTINGS_STATE"] =
-    new gui::Button(this->p2pX(15.6f), this->p2pY(53.7f),
-                    this->p2pX(13.0f), this->p2pY(6.f),
-                    &this->font, "Settings", this->calcCharSize(),
+    new gui::Button(gui::p2pX(15.6f, vm), gui::p2pY(53.7f, vm),
+                    gui::p2pX(13.0f, vm), gui::p2pY(6.f, vm),
+                    &this->font, "Settings", gui::calcCharSize(vm),
                     sf::Color(70, 70, 70, 200),  sf::Color(250, 250, 250, 250),  sf::Color(20, 20, 20, 50),
                     sf::Color(70, 70, 70, 0),  sf::Color(150, 150, 150, 0),  sf::Color(20, 20, 20, 0)
                     );
 
   this->buttons["EDITOR_STATE"] =
-    new gui::Button(this->p2pX(15.6f), this->p2pY(63.0f),
-                    this->p2pX(13.0f), this->p2pY(6.f),
-                    &this->font, "Editor", this->calcCharSize(),
+    new gui::Button(gui::p2pX(15.6f, vm), gui::p2pY(63.0f, vm),
+                    gui::p2pX(13.0f, vm), gui::p2pY(6.f, vm),
+                    &this->font, "Editor", gui::calcCharSize(vm),
                     sf::Color(70, 70, 70, 200),  sf::Color(250, 250, 250, 250),  sf::Color(20, 20, 20, 50),
                     sf::Color(70, 70, 70, 0),  sf::Color(150, 150, 150, 0),  sf::Color(20, 20, 20, 0)
                     );
 
   this->buttons["EXIT_STATE"] =
-    new gui::Button(this->p2pX(15.6f), this->p2pY(81.5f),
-                    this->p2pX(13.0f), this->p2pY(6.f),
-                    &this->font, "Quit", this->calcCharSize(),
+    new gui::Button(gui::p2pX(15.6f, vm), gui::p2pY(81.5f, vm),
+                    gui::p2pX(13.0f, vm), gui::p2pY(6.f, vm),
+                    &this->font, "Quit", gui::calcCharSize(vm),
                     sf::Color(70, 70, 70, 200),  sf::Color(250, 250, 250, 250),  sf::Color(20, 20, 20, 50),
                     sf::Color(70, 70, 70, 0),  sf::Color(150, 150, 150, 0),  sf::Color(20, 20, 20, 0)
                     );
 
+}
+
+void MainMenuState::resetGui() {
+  auto it = this->buttons.begin();
+  for(it = this->buttons.begin(); it != this->buttons.end(); ++it) {
+    delete it->second;
+  }
+  this->buttons.clear();
+
+  this->initGui();
 }
 
 void MainMenuState::updateButtons() {
