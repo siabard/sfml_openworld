@@ -17,11 +17,11 @@ class MainMenuState :
   sf::RectangleShape background;
   sf::Font font;
 
+  sf::RectangleShape btnBackground;
   std::map<std::string, gui::Button*> buttons;
 
   // functions
   void initVariables();
-  void initBackground();
   void initFonts();
   void initKeybinds();
   void initGui();

@@ -8,7 +8,7 @@ class PlayerGUI {
   Player* player;
 
   sf::Font font;
-
+  sf::VideoMode& vm;
   // Level Bar
   std::string levelBarString;
   sf::Text levelBarText;
@@ -34,7 +34,7 @@ class PlayerGUI {
   void initHpBar();
 
  public:
-  PlayerGUI(Player* player);
+  PlayerGUI(Player* player, sf::VideoMode& vm);
   virtual ~PlayerGUI();
 
   // functions

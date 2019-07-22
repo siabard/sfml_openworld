@@ -43,7 +43,7 @@ void GameState::initKeybinds() {
 }
 
 void GameState::initTextures() {
-  if(!this->textures["PLAYER_SHEET"].loadFromFile("Resource/images/sprites/player/player_sheet.png")) {
+  if(!this->textures["PLAYER_SHEET"].loadFromFile("Resource/images/sprites/player/player_sheet2.png")) {
     throw "GAMESTATE::PLAYER_SHEET::CANNOT_LOAD_PLAYER_SHEET";
   }
 
@@ -64,7 +64,7 @@ void GameState::initPlayers() {
 }
 
 void GameState::initPlayerGUI() {
-  this->playerGUI = new PlayerGUI(this->player);
+  this->playerGUI = new PlayerGUI(this->player, this->stateData->gfxSettings->resolution);
 }
 
 void GameState::initFonts() {
@@ -75,7 +75,7 @@ void GameState::initFonts() {
 }
 
 void GameState::initTileMap() {
-  this->tileMap = new TileMap( this->stateData->gridSize, 100, 100, "Resource/images/tiles/tilesheet1.png");
+  this->tileMap = new TileMap( this->stateData->gridSize, 100, 100, "Resource/images/tiles/tilesheet3.png");
   this->tileMap->loadFromFile("text.slmp");
 }
 
@@ -108,7 +108,11 @@ GameState::~GameState() {
 
 // functions
 void GameState::updateView(const float& dt) {
-  this->view.setCenter( std::floor(this->player->getPosition().x), std::floor(this->player->getPosition().y));
+  this->view.setCenter(
+                       std::floor(this->player->getPosition().x +
+                                  (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 5.f ),
+                       std::floor(this->player->getPosition().y +
+                                  (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 5.f ));
 }
 
 void GameState::update(const float& dt) {
@@ -183,8 +187,8 @@ void GameState::render(sf::RenderTarget* target) {
 
   this->renderTexture.clear();
   this->renderTexture.setView(this->view);
-  this->tileMap->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)));
-  this->player->render(this->renderTexture);
+  this->tileMap->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)), false);
+  this->player->render(this->renderTexture, false);
   this->tileMap->renderDeferred(this->renderTexture);
 
   // Render GUI

@@ -42,7 +42,7 @@ public:
   virtual void stopVelocityX();
   virtual void stopVelocityY();
   virtual void update(const float& dt) = 0;
-  virtual void render(sf::RenderTarget& target) = 0;
+  virtual void render(sf::RenderTarget& target, const bool show_hitbox = false) = 0;
 };
 
 #endif

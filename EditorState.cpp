@@ -73,7 +73,7 @@ void EditorState::initButtons() {
 }
 
 void EditorState::initTileMap() {
-  this->tileMap = new TileMap(this->stateData->gridSize, 100, 100, "Resource/images/tiles/tilesheet1.png");
+  this->tileMap = new TileMap(this->stateData->gridSize, 100, 100, "Resource/images/tiles/tilesheet3.png");
 }
 
 EditorState::EditorState(StateData* state_data) : State(state_data) {
