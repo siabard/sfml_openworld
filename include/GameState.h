@@ -26,9 +26,10 @@ private:
 
   TileMap* tileMap;
 
-protected:
   sf::Font font;
   PauseMenu* pmenu;
+
+  sf::Shader core_shader;
 
   // functions
   void initDeferredRender();
@@ -39,6 +40,7 @@ protected:
   void initPlayerGUI();
   void initFonts();
   void initPauseMenu();
+  void initShaders();
   void initTileMap();
 
 public:

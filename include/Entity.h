@@ -31,6 +31,7 @@ public:
 
   // accessors
   virtual const sf::Vector2f& getPosition() const;
+  virtual const sf::Vector2f getCenter() const;
   virtual const sf::FloatRect getGlobalBounds() const;
   virtual const sf::Vector2i getGridPosition(const int gridSize) const;
   virtual const sf::FloatRect getNextPositionBounds(const float& dt) const;
@@ -42,7 +43,7 @@ public:
   virtual void stopVelocityX();
   virtual void stopVelocityY();
   virtual void update(const float& dt) = 0;
-  virtual void render(sf::RenderTarget& target, const bool show_hitbox = false) = 0;
+  virtual void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const bool show_hitbox = false) = 0;
 };
 
 #endif

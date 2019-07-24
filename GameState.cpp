@@ -74,6 +74,12 @@ void GameState::initFonts() {
 
 }
 
+void GameState::initShaders() {
+  if(!this->core_shader.loadFromFile("vertex_shader.vert", "fragment_shader.frag")) {
+    std::cout << "ERROR::GAMESTATE::COULD NOT LOAD SHADER." << std::endl;
+  }
+}
+
 void GameState::initTileMap() {
   this->tileMap = new TileMap( this->stateData->gridSize, 100, 100, "Resource/images/tiles/tilesheet3.png");
   this->tileMap->loadFromFile("text.slmp");
@@ -87,6 +93,7 @@ GameState::GameState(StateData* state_data) : State(state_data) {
   this->initFonts();
   this->initTextures();
   this->initPauseMenu();
+  this->initShaders();
   this->initPlayers();
   this->initPlayerGUI();
   this->initTileMap();
@@ -187,9 +194,9 @@ void GameState::render(sf::RenderTarget* target) {
 
   this->renderTexture.clear();
   this->renderTexture.setView(this->view);
-  this->tileMap->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)), false);
-  this->player->render(this->renderTexture, false);
-  this->tileMap->renderDeferred(this->renderTexture);
+  this->tileMap->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)), &this->core_shader, this->player->getCenter(), false);
+  this->player->render(this->renderTexture, &this->core_shader, false);
+  this->tileMap->renderDeferred(this->renderTexture, &this->core_shader, this->player->getCenter());
 
   // Render GUI
   this->renderTexture.setView(this->renderTexture.getDefaultView());
