@@ -26,6 +26,16 @@ Player::Player(float x, float y, sf::Texture& texture) {
   this->animationComponent->addAnimation("WALK_RIGHT", 12.f, 8, 1, 11, 1, 64, 64);
   this->animationComponent->addAnimation("WALK_UP", 12.f, 12, 1, 15, 1, 64, 64);
   this->animationComponent->addAnimation("ATTACK", 5.f, 0, 2, 1, 2, 64, 64);
+
+  // Visual Weapon
+  if(!this->weapon_texture.loadFromFile("Resource/images/sprites/player/sword.png")) {
+    std::cout << "ERROR::PLAYER::COULD NOT LOAD WEAPON TEXTURE" << std::endl;
+  }
+  this->weapon_sprite.setTexture(this->weapon_texture);
+
+  this->weapon_sprite.setOrigin(this->weapon_sprite.getGlobalBounds().width / 2.f,
+                                this->weapon_sprite.getGlobalBounds().height
+                                );
 }
 
 Player::~Player() {}
@@ -38,24 +48,15 @@ AttributeComponent* Player::getAttributeComponent() {
 // functions
 
 void Player::loseHP(const int hp) {
-  this->attributeComponent->hp -= hp;
-
-  if(this->attributeComponent->hp < 0)
-    this->attributeComponent->hp = 0;
+  this->attributeComponent->loseHP(hp);
 }
 
 void Player::gainHP(const int hp) {
-  this->attributeComponent->hp += hp;
-  if(this->attributeComponent->hp > this->attributeComponent->hpMax)
-    this->attributeComponent->hp = this->attributeComponent->hpMax;
+  this->attributeComponent->gainHP(hp);
 }
 
 void Player::loseEXP(const int exp) {
-  this->attributeComponent->exp -= exp;
-
-  if(this->attributeComponent->exp < 0) {
-    this->attributeComponent->exp = 0;
-  }
+  this->attributeComponent->loseEXP(exp);
 }
 
 void Player::gainEXP(const int exp) {
@@ -73,30 +74,6 @@ void Player::updateAttack() {
 void Player::updateAnimation(const float& dt) {
   if (this->attacking) {
 
-    // set origin depending on direction
-    if(this->sprite.getScale().x > 0.f) {
-      // facing  left
-      this->sprite.setOrigin(96.f, 0.f);
-    } else {
-      // face  right
-      this->sprite.setOrigin(258.f + 96.f, 0.f);
-    }
-
-    // animate and check for animation end
-    if(this->animationComponent->play("ATTACK", dt, true)) {
-      this->attacking = false;
-
-      // set origin depending on direction
-      if(this->sprite.getScale().x > 0.f) {
-        // facing  left
-        this->sprite.setOrigin(0.f, 0.f);
-      } else {
-        // face  right
-        this->sprite.setOrigin(258.f, 0.f);
-      }
-
-
-    }
   }
 
   if(this->movementComponent->getState(movement_state::IDLE)) {
@@ -116,7 +93,7 @@ void Player::updateAnimation(const float& dt) {
 }
 
 
-void Player::update(const float& dt) {
+void Player::update(const float& dt, sf::Vector2f& mouse_pos_view) {
 
   this->movementComponent->update(dt);
 
@@ -125,6 +102,18 @@ void Player::update(const float& dt) {
   this->updateAnimation(dt);
 
   this->hitboxComponent->update();
+
+
+  // update visual weapon
+  this->weapon_sprite.setPosition(this->getCenter());
+
+  float dX = mouse_pos_view.x - this->weapon_sprite.getPosition().x;
+  float dY = mouse_pos_view.y - this->weapon_sprite.getPosition().y;
+
+  const float PI = 3.14159265;
+  float deg = atan2(dY, dX) * 180 / PI;
+
+  this->weapon_sprite.setRotation(deg + 90.f);
 
 }
 
@@ -136,8 +125,14 @@ void Player::render(sf::RenderTarget& target, sf::Shader* shader, const bool sho
     shader->setUniform("lightPos", this->getCenter());
 
     target.draw(this->sprite, shader);
+
+    shader->setUniform("hasTexture", true);
+    shader->setUniform("lightPos", this->getCenter());
+
+    target.draw(this->weapon_sprite, shader);
   } else {
     target.draw(this->sprite);
+    target.draw(this->weapon_sprite);
   }
 
   if (show_hitbox) {

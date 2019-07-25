@@ -42,7 +42,7 @@ public:
   virtual void stopVelocity();
   virtual void stopVelocityX();
   virtual void stopVelocityY();
-  virtual void update(const float& dt) = 0;
+  virtual void update(const float& dt, sf::Vector2f& mouse_pos_view) = 0;
   virtual void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const bool show_hitbox = false) = 0;
 };
 
