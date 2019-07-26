@@ -41,6 +41,7 @@ private:
   short type;
   float cameraSpeed;
   int layer;
+  bool tileAddLock;
 
   // functions
 

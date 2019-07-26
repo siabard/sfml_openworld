@@ -89,7 +89,6 @@ void Player::updateAnimation(const float& dt) {
     this->animationComponent->play("WALK_DOWN", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
   }
 
-
 }
 
 

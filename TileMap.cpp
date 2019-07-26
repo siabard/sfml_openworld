@@ -32,8 +32,8 @@ TileMap::TileMap(const float gridSize, int width, int height, std::string textur
   this->maxSizeWorldGrid.x = width;
   this->maxSizeWorldGrid.y = height;
 
-  this->maxSizeWorld.x = static_cast<float>(width) * gridSize;
-  this->maxSizeWorld.y = static_cast<float>(height) * gridSize;
+  this->maxSizeWorldF.x = static_cast<float>(width) * gridSize;
+  this->maxSizeWorldF.y = static_cast<float>(height) * gridSize;
 
   this->layers = 1;
 
@@ -92,13 +92,13 @@ void TileMap::render(sf::RenderTarget& target, const sf::Vector2i& gridPosition,
     else if(this->toX > this->maxSizeWorldGrid.x)
       this->toX = this->maxSizeWorldGrid.x;
 
-    this->fromY = gridPosition.y - 9;
+    this->fromY = gridPosition.y - 8;
     if(this->fromY < 0)
       this->fromY = 0;
     else if(this->fromY > this->maxSizeWorldGrid.y)
       this->fromY = this->maxSizeWorldGrid.y;
 
-    this->toY = gridPosition.y + 11;
+    this->toY = gridPosition.y + 9;
     if(this->toY < 0)
       this->toY = 0;
     else if(this->toY > this->maxSizeWorldGrid.y)
@@ -204,6 +204,8 @@ void TileMap::loadFromFile(const std::string file_name) {
     this->gridSizeI = gridSizeI;
     this->maxSizeWorldGrid.x = size.x;
     this->maxSizeWorldGrid.y = size.y;
+    this->maxSizeWorldF.x = static_cast<float>(size.x) * this->gridSizeF;
+    this->maxSizeWorldF.y = static_cast<float>(size.y) * this->gridSizeF;
     this->layers = layers;
     this->textureFile = texture_file;
 
@@ -295,6 +297,17 @@ void TileMap::saveToFile(const std::string file_name) {
 }
 
 // accessors
+
+const bool TileMap::tileEmpty(const int x, const int y, const int z) const {
+  if(x >= 0 && x < this->maxSizeWorldGrid.x &&
+     y >= 0 && y < this->maxSizeWorldGrid.y &&
+     z >= 0 && z < this->layers ) {
+    return this->map[x][y][z].empty();
+  }
+
+  throw("ERROR::TILEMAP::TILEEMPTY::TRYING TO ACCESS OUT OF BOUNDS OF TILE");
+}
+
 const sf::Texture* TileMap::getTileSheet() const {
   return &this->tileSheet;
 }
@@ -311,14 +324,22 @@ const int TileMap::getLayerSize(const int x, const int y, const int layer) const
   return -1;
 }
 
+const sf::Vector2i& TileMap::getMaxSizeGrid() const {
+  return this->maxSizeWorldGrid;
+}
+
+const sf::Vector2f& TileMap::getMaxSizeF() const {
+  return this->maxSizeWorldF;
+}
+
 void TileMap::updateCollision(Entity* entity, const float& dt) {
 
   // WORLD BOUNDS
   if(entity->getPosition().x < 0.f) {
     entity->setPosition(0.f, entity->getPosition().y);
     entity->stopVelocityX();
-  } else if(entity->getPosition().x + entity->getGlobalBounds().width > this->maxSizeWorld.x) {
-    entity->setPosition(this->maxSizeWorld.x - entity->getGlobalBounds().width ,
+  } else if(entity->getPosition().x + entity->getGlobalBounds().width > this->maxSizeWorldF.x) {
+    entity->setPosition(this->maxSizeWorldF.x - entity->getGlobalBounds().width ,
                         entity->getPosition().y);
     entity->stopVelocityX();
   }
@@ -326,9 +347,9 @@ void TileMap::updateCollision(Entity* entity, const float& dt) {
   if(entity->getPosition().y < 0.f) {
     entity->setPosition(entity->getPosition().x, 0.f);
     entity->stopVelocityY();
-  } else if(entity->getPosition().y + entity->getGlobalBounds().height > this->maxSizeWorld.y) {
+  } else if(entity->getPosition().y + entity->getGlobalBounds().height > this->maxSizeWorldF.y) {
     entity->setPosition(entity->getPosition().x,
-                        this->maxSizeWorld.y - entity->getGlobalBounds().height
+                        this->maxSizeWorldF.y - entity->getGlobalBounds().height
                         );
     entity->stopVelocityY();
   }
