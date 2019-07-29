@@ -3,14 +3,14 @@
 
 #include "Entity.h"
 #include "AttributeComponent.h"
+#include "Swoard.h"
 
 class Player :
   public Entity {
 private:
   // variables
   bool attacking;
-  sf::Sprite weapon_sprite;
-  sf::Texture weapon_texture;
+  Swoard swoard;
 
   // initializer function
   void initVariables();

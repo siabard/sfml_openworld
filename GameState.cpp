@@ -26,6 +26,7 @@ void GameState::initView() {
                                     static_cast<float>(this->stateData->gfxSettings->resolution.height) / 2.f
                                   ));
 
+
 }
 
 void GameState::initKeybinds() {
@@ -81,8 +82,9 @@ void GameState::initShaders() {
 }
 
 void GameState::initTileMap() {
-  this->tileMap = new TileMap( this->stateData->gridSize, 100, 100, "Resource/images/tiles/tilesheet3.png");
-  this->tileMap->loadFromFile("text.slmp");
+  //this->tileMap = new TileMap( this->stateData->gridSize, 100, 100, "Resource/images/tiles/tilesheet3.png");
+  //this->tileMap->loadFromFile("text.slmp");
+  this->tileMap = new TileMap("text.slmp");
 }
 
 // Constructor
@@ -97,6 +99,7 @@ GameState::GameState(StateData* state_data) : State(state_data) {
   this->initPlayers();
   this->initPlayerGUI();
   this->initTileMap();
+
 }
 
 GameState::~GameState() {

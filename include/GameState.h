@@ -7,6 +7,8 @@
 #include "PauseMenu.h"
 #include "TileMap.h"
 #include "PlayerGUI.h"
+#include "Swoard.h"
+#include "Bow.h"
 
 class PauseMenu;
 class Player;
