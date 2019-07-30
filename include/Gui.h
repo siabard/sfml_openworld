@@ -112,5 +112,28 @@ namespace gui {
     void updateKeytime(const float& dt);
     const bool getKeytime();
   };
+
+  class ProgressBar {
+  private:
+    std::string barString;
+    float maxWidth;
+    int maxValue;
+    sf::Text text;
+    sf::RectangleShape back;
+    sf::RectangleShape inner;
+
+
+  public:
+    ProgressBar(float x, float y, float width, float height, int max_value,  sf::VideoMode& vm, sf::Font* font = nullptr);
+    virtual ~ProgressBar();
+
+    // accessors
+
+    // modifiers
+
+    // functions
+    void update(const int current_value);
+    void render(sf::RenderTarget& target);
+  };
 }
 #endif

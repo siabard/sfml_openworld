@@ -47,27 +47,9 @@ void PlayerGUI::initEXPBar() {
 
 
 void PlayerGUI::initHpBar() {
-  float width = gui::p2pX(10.4f, this->vm);
-  float height = gui::p2pY(2.8f, this->vm);
-  float x = gui::p2pX(1.f, this->vm);
-  float y = gui::p2pY(8.3f, this->vm);
 
-  this->hpBarMaxWidth = width;
+  this->hpBar = new gui::ProgressBar(1.f, 8.3, 10.4, 2.8, this->player->getAttributeComponent()->hpMax, this->vm, &this->font);
 
-
-  this->hpBarBack.setSize(sf::Vector2f(width, height));
-  this->hpBarBack.setFillColor(sf::Color(50, 50, 50, 200));
-  this->hpBarBack.setPosition(x, y);
-
-  this->hpBarInner.setSize(sf::Vector2f(width, height));
-  this->hpBarInner.setFillColor(sf::Color(250, 20, 20, 200));
-  this->hpBarInner.setPosition(this->hpBarBack.getPosition());
-
-  this->hpBarText.setFont(this->font);
-  this->hpBarText.setCharacterSize(gui::calcCharSize(this->vm, 180));
-  this->hpBarText.setPosition(this->hpBarInner.getPosition().x + gui::p2pX(0.53f, this->vm),
-                              this->hpBarInner.getPosition().y + gui::p2pY(0.15f, this->vm)
-                              );
 }
 
 PlayerGUI::PlayerGUI(Player* player, sf::VideoMode& vm) : vm(vm) {
@@ -80,6 +62,7 @@ PlayerGUI::PlayerGUI(Player* player, sf::VideoMode& vm) : vm(vm) {
 }
 
 PlayerGUI::~PlayerGUI() {
+  delete this->hpBar;
 
 }
 
@@ -106,16 +89,8 @@ void PlayerGUI::updateEXPBar() {
 
 
 void PlayerGUI::updateHpBar() {
-  float percent =
-    static_cast<float>(this->player->getAttributeComponent()->hp)
-    / static_cast<float>(this->player->getAttributeComponent()->hpMax);
-  this->hpBarInner.setSize(sf::Vector2f(static_cast<float>(std::floor(this->hpBarMaxWidth * percent)), this->hpBarInner.getSize().y));
+  this->hpBar->update(this->player->getAttributeComponent()->hp);
 
-  this->hpBarString =
-    std::to_string(this->player->getAttributeComponent()->hp)
-    + " / "
-    + std::to_string(this->player->getAttributeComponent()->hpMax);
-  this->hpBarText.setString(this->hpBarString);
 }
 
 void PlayerGUI::update(const float& dt) {
@@ -138,9 +113,7 @@ void PlayerGUI::renderEXPBar(sf::RenderTarget& target) {
 
 
 void PlayerGUI::renderHpBar(sf::RenderTarget& target) {
-  target.draw(this->hpBarBack);
-  target.draw(this->hpBarInner);
-  target.draw(this->hpBarText);
+  this->hpBar->render(target);
 }
 
 void PlayerGUI::render(sf::RenderTarget& target) {

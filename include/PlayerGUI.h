@@ -2,6 +2,7 @@
 #define __PLAYERGUI_H__
 
 #include "Player.h"
+#include "Gui.h"
 
 class PlayerGUI {
  private:
@@ -22,11 +23,14 @@ class PlayerGUI {
   sf::RectangleShape expBarInner;
 
   // HP bar
+  /*
   std::string hpBarString;
   float hpBarMaxWidth;
   sf::Text hpBarText;
   sf::RectangleShape hpBarBack;
   sf::RectangleShape hpBarInner;
+  */
+  gui::ProgressBar* hpBar;
 
   void initFont();
   void initLevelBar();
