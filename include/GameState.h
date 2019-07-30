@@ -4,6 +4,7 @@
 #include "State.h"
 #include "Entity.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "PauseMenu.h"
 #include "TileMap.h"
 #include "PlayerGUI.h"
@@ -26,6 +27,8 @@ private:
   Player*  player;
   PlayerGUI* playerGUI;
   sf::Texture texture;
+
+  Enemy* testEnemy;
 
   TileMap* tileMap;
 

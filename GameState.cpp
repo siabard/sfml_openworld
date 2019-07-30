@@ -100,6 +100,8 @@ GameState::GameState(StateData* state_data) : State(state_data) {
   this->initPlayerGUI();
   this->initTileMap();
 
+  this->testEnemy = new Enemy(200.f, 200.f, this->textures["PLAYER_SHEET"]);
+
 }
 
 GameState::~GameState() {
@@ -108,6 +110,10 @@ GameState::~GameState() {
   }
   if(this->player) {
     delete this->player;
+  }
+
+  if(this->testEnemy) {
+    delete this->testEnemy;
   }
 
 
@@ -157,6 +163,9 @@ void GameState::update(const float& dt) {
     this->updateTileMap(dt);
     this->player->update(dt, this->mousePosView);
     this->playerGUI->update(dt);
+
+    this->testEnemy->update(dt, this->mousePosView);
+    this->testEnemy->move(1.f, 0.f, dt);
   } else {
     // paused update
     this->pmenu->update(this->mousePosWindow);
@@ -204,6 +213,7 @@ void GameState::updatePlayerInput(const float& dt) {
 void GameState::updateTileMap(const float& dt) {
   this->tileMap->update();
   this->tileMap->updateCollision(this->player, dt);
+  this->tileMap->updateCollision(this->testEnemy, dt);
 }
 
 void GameState::updatePauseMenuButtons() {
@@ -219,6 +229,9 @@ void GameState::render(sf::RenderTarget* target) {
   this->renderTexture.setView(this->view);
   this->tileMap->render(this->renderTexture, this->viewGridPosition, &this->core_shader, this->player->getCenter(), false);
   this->player->render(this->renderTexture, &this->core_shader, false);
+
+  this->testEnemy->render(this->renderTexture, &this->core_shader, false);
+
   this->tileMap->renderDeferred(this->renderTexture, &this->core_shader, this->player->getCenter());
 
   // Render GUI

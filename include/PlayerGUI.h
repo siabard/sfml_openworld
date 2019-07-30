@@ -10,26 +10,16 @@ class PlayerGUI {
 
   sf::Font font;
   sf::VideoMode& vm;
+
   // Level Bar
   std::string levelBarString;
   sf::Text levelBarText;
   sf::RectangleShape levelBarBack;
 
   // Exp bar
-  std::string expBarString;
-  float expBarMaxWidth;
-  sf::Text expBarText;
-  sf::RectangleShape expBarBack;
-  sf::RectangleShape expBarInner;
+  gui::ProgressBar* expBar;
 
   // HP bar
-  /*
-  std::string hpBarString;
-  float hpBarMaxWidth;
-  sf::Text hpBarText;
-  sf::RectangleShape hpBarBack;
-  sf::RectangleShape hpBarInner;
-  */
   gui::ProgressBar* hpBar;
 
   void initFont();

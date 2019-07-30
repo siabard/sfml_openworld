@@ -382,7 +382,9 @@ void gui::TextureSelector::render(sf::RenderTarget& target) {
 /**********************************************************/
 // Progressbar
 
-gui::ProgressBar::ProgressBar(float _x, float _y, float _width, float _height, int max_value, sf::VideoMode& vm, sf::Font* font) {
+gui::ProgressBar::ProgressBar(float _x, float _y, float _width, float _height, int max_value,
+                              sf::Color inner_color, unsigned character_size,
+                              sf::VideoMode& vm, sf::Font* font) {
   float width = gui::p2pX(_width, vm);
   float height = gui::p2pY(_height, vm);
   float x = gui::p2pX(_x, vm);
@@ -396,12 +398,12 @@ gui::ProgressBar::ProgressBar(float _x, float _y, float _width, float _height, i
   this->back.setPosition(x, y);
 
   this->inner.setSize(sf::Vector2f(width, height));
-  this->inner.setFillColor(sf::Color(250, 20, 20, 200));
+  this->inner.setFillColor(inner_color);
   this->inner.setPosition(this->back.getPosition());
 
   if(font) {
     this->text.setFont(*font);
-    this->text.setCharacterSize(gui::calcCharSize(vm, 180));
+    this->text.setCharacterSize(gui::calcCharSize(vm, character_size));
     this->text.setPosition(this->inner.getPosition().x + gui::p2pX(0.53f, vm),
                            this->inner.getPosition().y + gui::p2pY(0.15f, vm)
                            );
