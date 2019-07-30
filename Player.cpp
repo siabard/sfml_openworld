@@ -19,6 +19,7 @@ Player::Player(float x, float y, sf::Texture& texture) {
   this->createMovementComponent(200.f, 1500.f, 900.f);
   this->createAnimationComponent(texture);
   this->createAttributeComponent(1);
+  this->createSkillComponent();
 
   this->animationComponent->addAnimation("IDLE", 15.f, 0, 0, 8, 0, 64, 64);
   this->animationComponent->addAnimation("WALK_DOWN", 12.f, 0, 1, 3, 1, 64, 64);

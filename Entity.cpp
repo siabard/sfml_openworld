@@ -20,6 +20,9 @@ Entity::~Entity() {
 
   if(this->attributeComponent)
     delete this->attributeComponent;
+
+  if(this->skillComponent)
+    delete this->skillComponent;
 }
 
 
@@ -28,6 +31,7 @@ void Entity::initVariables() {
   this->animationComponent = nullptr;
   this->hitboxComponent = nullptr;
   this->attributeComponent = nullptr;
+  this->skillComponent = nullptr;
 }
 
 void Entity::setTexture(sf::Texture& texture) {
@@ -38,6 +42,11 @@ void Entity::setTexture(sf::Texture& texture) {
 void Entity::move(const float dir_x, const float dir_y, const float& dt) {
   if(this->movementComponent) {
     this->movementComponent->move(dir_x, dir_y, dt); // Sets velocity
+  }
+
+  if(this->skillComponent) {
+    this->skillComponent->gainExp(SKILLS::ENDURANCE, 1);
+    //std::cout << "SKILL::ENDURANCE :  " <<this->skillComponent->getSkill(SKILLS::ENDURANCE) << std::endl;
   }
 
 }
@@ -131,4 +140,8 @@ void Entity::createHitboxComponent(sf::Sprite& sprite, const float offset_x, con
 
 void Entity::createAttributeComponent(const unsigned level) {
   this->attributeComponent = new AttributeComponent(level);
+}
+
+void Entity::createSkillComponent() {
+  this->skillComponent = new SkillComponent();
 }
