@@ -15,7 +15,8 @@ void Enemy::initAnimation() {
   this->animationComponent->addAnimation("ATTACK", 5.f, 0, 2, 1, 2, 64, 64);
 }
 
-Enemy::Enemy(float x, float y, sf::Texture& texture) {
+Enemy::Enemy(EnemySpawner& enemySpawner, float x, float y, sf::Texture& texture)
+  : enemySpawner(enemySpawner) {
   this->initVariables();
 
   this->createHitboxComponent(sprite, 10.f, 5.f, 44.f, 54.f);

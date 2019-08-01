@@ -1,7 +1,7 @@
 #ifndef __TILE_H__
 #define __TILE_H__
 
-enum TileTypes {DEFAULT = 0, DAMAGING, DOODAD, LIMIT};
+enum TileTypes {DEFAULT = 0, DAMAGING, DOODAD, ENEMYSPAWNER, LIMIT};
 
 class Tile {
 private:
@@ -26,8 +26,8 @@ public:
   const std::string getAsString() const;
 
   // functions
-  void update();
-  void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const sf::Vector2f playerPosition = sf::Vector2f());
+  virtual void update();
+  virtual void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const sf::Vector2f playerPosition = sf::Vector2f());
 
 };
 

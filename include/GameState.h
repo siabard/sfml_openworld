@@ -28,8 +28,6 @@ private:
   PlayerGUI* playerGUI;
   sf::Texture texture;
 
-  Enemy* testEnemy;
-
   TileMap* tileMap;
 
   sf::Font font;

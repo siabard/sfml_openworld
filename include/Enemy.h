@@ -2,14 +2,15 @@
 #define __ENEMY_H__
 
 #include "Entity.h"
+#include "EnemySpawner.h"
 
 class Enemy :
   public Entity {
 
 private:
   // Variables
-
   bool attacking;
+  EnemySpawner& enemySpawner;
 
   // initializer functions
   void initVariables();
@@ -17,7 +18,7 @@ private:
 
 public:
 
-  Enemy(float x, float y, sf::Texture& texture);
+  Enemy(EnemySpawner& enemySpawner, float x, float y, sf::Texture& texture);
   virtual ~Enemy();
 
   // function

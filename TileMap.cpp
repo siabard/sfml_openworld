@@ -94,9 +94,6 @@ TileMap::~TileMap() {
 }
 
 // Functions
-void TileMap::update() {
-
-}
 
 void TileMap::render(sf::RenderTarget& target, const sf::Vector2i& gridPosition, sf::Shader* shader, const sf::Vector2f playerPosition, const bool show_collision) {
 
@@ -354,7 +351,7 @@ const sf::Vector2f& TileMap::getMaxSizeF() const {
   return this->maxSizeWorldF;
 }
 
-void TileMap::updateCollision(Entity* entity, const float& dt) {
+void TileMap::update(Entity* entity, const float& dt) {
 
   // WORLD BOUNDS
   if(entity->getPosition().x < 0.f) {
@@ -408,6 +405,8 @@ void TileMap::updateCollision(Entity* entity, const float& dt) {
     for(int y = this->fromY; y < this->toY; y++) {
       if(!this->map[x][y][this->layer].empty()) {
         for(size_t k = 0; k < this->map[x][y][this->layer].size(); k++) {
+
+          this->map[x][y][this->layer][k]->update();
 
           sf::FloatRect playerBounds = entity->getGlobalBounds();
           sf::FloatRect wallBounds = this->map[x][y][this->layer][k]->getGlobalBounds();

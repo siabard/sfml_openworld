@@ -54,7 +54,6 @@ const bool Tile::intersects(const sf::FloatRect& bounds) const {
 }
 
 void Tile::update() {
-
 }
 
 void Tile::render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vector2f playerPosition) {
