@@ -11,10 +11,10 @@ void Player::initComponents() {
 
 void Player::initAnimation() {
   this->animationComponent->addAnimation("IDLE", 15.f, 0, 0, 8, 0, 64, 64);
-  this->animationComponent->addAnimation("WALK_DOWN", 12.f, 0, 1, 3, 1, 64, 64);
-  this->animationComponent->addAnimation("WALK_LEFT", 12.f, 4, 1, 7, 1, 64, 64);
-  this->animationComponent->addAnimation("WALK_RIGHT", 12.f, 8, 1, 11, 1, 64, 64);
-  this->animationComponent->addAnimation("WALK_UP", 12.f, 12, 1, 15, 1, 64, 64);
+  this->animationComponent->addAnimation("WALK_DOWN", 11.f, 0, 1, 3, 1, 64, 64);
+  this->animationComponent->addAnimation("WALK_LEFT", 11.f, 4, 1, 7, 1, 64, 64);
+  this->animationComponent->addAnimation("WALK_RIGHT", 11.f, 8, 1, 11, 1, 64, 64);
+  this->animationComponent->addAnimation("WALK_UP", 11.f, 12, 1, 15, 1, 64, 64);
   this->animationComponent->addAnimation("ATTACK", 5.f, 0, 2, 1, 2, 64, 64);
 }
 
@@ -100,16 +100,16 @@ void Player::update(const float& dt, sf::Vector2f& mouse_pos_view) {
 }
 
 
-void Player::render(sf::RenderTarget& target, sf::Shader* shader, const bool show_hitbox) {
+void Player::render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox) {
 
   if(shader) {
     shader->setUniform("hasTexture", true);
-    shader->setUniform("lightPos", this->getCenter());
+    shader->setUniform("lightPos", light_position);
 
     target.draw(this->sprite, shader);
 
     shader->setUniform("hasTexture", true);
-    shader->setUniform("lightPos", this->getCenter());
+    shader->setUniform("lightPos", light_position);
     this->swoard.render(target, shader);
   } else {
     target.draw(this->sprite);

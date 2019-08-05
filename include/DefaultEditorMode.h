@@ -29,7 +29,7 @@ public:
   void updateGui(const float& dt);
   void update(const float& dt);
 
-  void render(sf::RenderTarget* target = nullptr) ;
+  void render(sf::RenderTarget& target) ;
   void renderGui(sf::RenderTarget& target);
 };
 

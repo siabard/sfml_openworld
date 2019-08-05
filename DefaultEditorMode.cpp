@@ -130,8 +130,8 @@ void DefaultEditorMode::update(const float& dt) {
   this->updateGui(dt);
 }
 
-void DefaultEditorMode::render(sf::RenderTarget* target) {
-  this->renderGui(*target);
+void DefaultEditorMode::render(sf::RenderTarget& target) {
+  this->renderGui(target);
 }
 
 void DefaultEditorMode::renderGui(sf::RenderTarget& target) {

@@ -109,6 +109,11 @@ EditorState::~EditorState() {
 
 }
 
+
+void EditorState::updateModes(const float& dt) {
+  this->modes[EditorModes::DEFAULT_MODE]->update(dt);
+}
+
 void EditorState::updateGui(const float& dt) {
 
 
@@ -123,12 +128,11 @@ void EditorState::update(const float& dt) {
     this->updateButtons();
     this->updateGui(dt);
     this->updateEditorInput(dt);
-    this->modes[EditorModes::DEFAULT_MODE]->update(dt);
+    this->updateModes(dt);
   } else {
     this->pmenu->update(this->mousePosWindow);
     this->updatePauseMenuButtons();
   }
-
 
 }
 
@@ -182,9 +186,15 @@ void EditorState::updateButtons() {
 
 }
 
+
+void EditorState::renderModes(sf::RenderTarget& target) {
+
+  this->modes[EditorModes::DEFAULT_MODE]->render(target);
+}
+
+
 void EditorState::renderGui(sf::RenderTarget& target) {
 
-  this->modes[EditorModes::DEFAULT_MODE]->render(&target);
 }
 
 void EditorState::renderButtons(sf::RenderTarget& target) {
@@ -200,12 +210,13 @@ void EditorState::render(sf::RenderTarget* target) {
     target = this->window;
 
   target->setView(this->view);
-  this->tileMap->render(*target, this->mousePosGrid, nullptr, sf::Vector2f(), false);
+  this->tileMap->render(*target, this->mousePosGrid, nullptr, sf::Vector2f(), true);
   this->tileMap->renderDeferred(*target);
 
   target->setView(this->window->getDefaultView());
   this->renderButtons(*target);
   this->renderGui(*target);
+  this->renderModes(*target);
   //target->draw(this->cursorText);
 
   if(this->paused) {

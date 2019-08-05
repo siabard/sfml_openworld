@@ -51,7 +51,6 @@ private:
   void initButtons();
   void initGui();
   void initTileMap();
-
   void initModes();
 
 public:
@@ -63,11 +62,13 @@ public:
   void updateInput(const float& dt);
   void updateEditorInput(const float& dt);
   void updatePauseMenuButtons();
+  void updateModes(const float& dt);
   void updateGui(const float& dt);
   void update(const float& dt);
   void render(sf::RenderTarget* target = nullptr);
   void renderGui(sf::RenderTarget& target);
   void renderButtons(sf::RenderTarget& target);
+  void renderModes(sf::RenderTarget& target);
 
 };
 

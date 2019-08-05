@@ -35,6 +35,8 @@ private:
 
   sf::Shader core_shader;
 
+  std::vector<Enemy*> activeEnemies;
+
   // functions
   void initDeferredRender();
   void initView();

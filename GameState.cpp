@@ -48,6 +48,9 @@ void GameState::initTextures() {
     throw "GAMESTATE::PLAYER_SHEET::CANNOT_LOAD_PLAYER_SHEET";
   }
 
+  if(!this->textures["RAT1_SHEET"].loadFromFile("Resource/images/sprites/enemy/rat1_60x64.png")) {
+    throw "GAMESTATE::PLAYER_SHEET::CANNOT_LOAD_RAT1_SHEET";
+  }
 }
 
 
@@ -100,6 +103,12 @@ GameState::GameState(StateData* state_data) : State(state_data) {
   this->initPlayerGUI();
   this->initTileMap();
 
+  this->activeEnemies.push_back(new Enemy(200.f, 100.f, this->textures["RAT1_SHEET"]));
+  this->activeEnemies.push_back(new Enemy(500.f, 200.f, this->textures["RAT1_SHEET"]));
+  this->activeEnemies.push_back(new Enemy(600.f, 300.f, this->textures["RAT1_SHEET"]));
+  this->activeEnemies.push_back(new Enemy(400.f, 500.f, this->textures["RAT1_SHEET"]));
+  this->activeEnemies.push_back(new Enemy(200.f, 400.f, this->textures["RAT1_SHEET"]));
+
 }
 
 GameState::~GameState() {
@@ -110,7 +119,9 @@ GameState::~GameState() {
     delete this->player;
   }
 
-
+  for(size_t i = 0; i < this->activeEnemies.size(); i++) {
+    delete this->activeEnemies[i];
+  }
 
   delete this->pmenu;
 
@@ -157,6 +168,11 @@ void GameState::update(const float& dt) {
     this->updatePlayerInput(dt);
     this->updateTileMap(dt);
     this->player->update(dt, this->mousePosView);
+
+    for(auto *i: this->activeEnemies) {
+      i->update(dt, this->mousePosView);
+    }
+
     this->playerGUI->update(dt);
 
   } else {
@@ -205,6 +221,10 @@ void GameState::updatePlayerInput(const float& dt) {
 
 void GameState::updateTileMap(const float& dt) {
   this->tileMap->update(this->player, dt);
+
+  for(auto *i: this->activeEnemies) {
+    this->tileMap->update(i, dt);
+  }
 }
 
 void GameState::updatePauseMenuButtons() {
@@ -219,8 +239,12 @@ void GameState::render(sf::RenderTarget* target) {
   this->renderTexture.clear();
   this->renderTexture.setView(this->view);
   this->tileMap->render(this->renderTexture, this->viewGridPosition, &this->core_shader, this->player->getCenter(), false);
-  this->player->render(this->renderTexture, &this->core_shader, false);
 
+  for(auto *i: this->activeEnemies) {
+    i->render(this->renderTexture, &this->core_shader, this->player->getCenter(), true);
+  }
+
+  this->player->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false);
 
   this->tileMap->renderDeferred(this->renderTexture, &this->core_shader, this->player->getCenter());
 
