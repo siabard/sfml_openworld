@@ -21,7 +21,7 @@ void DefaultEditorMode::initVariables() {
 }
 
 void DefaultEditorMode::initGui() {
-  // TExt
+  // Text
   this->cursorText.setFont(*this->editorStateData->font);
   this->cursorText.setFillColor(sf::Color::White);
   this->cursorText.setCharacterSize(12);

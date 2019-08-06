@@ -1,6 +1,7 @@
 #ifndef __DEFAULTMODE_H__
 #define __DEFAULTMODE_H__
 
+#include "Tile.h"
 #include "EditorMode.h"
 
 class DefaultEditorMode :
@@ -17,12 +18,13 @@ private:
   int layer;
   bool tileAddLock;
 
+  void initVariables();
+  void initGui();
+
 public:
   DefaultEditorMode(StateData* state_data, TileMap* tile_map, EditorStateData* editor_state_data);
   virtual ~DefaultEditorMode();
 
-  void initVariables();
-  void initGui();
   void initText();
 
   void updateInput(const float& dt);

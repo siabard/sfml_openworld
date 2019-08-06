@@ -7,7 +7,7 @@
 #include "TileMap.h"
 #include "GraphicsSettings.h"
 #include "EditorMode.h"
-#include "DefaultEditorMode.h"
+#include "EditorModes.h"
 
 /*
  * forward declaration
@@ -19,7 +19,7 @@ class PauseMenu;
 class TileMap;
 class GraphicsSettings;
 
-enum EditorModes {DEFAULT_MODE = 0, ENEMY_MODE};
+enum EditorModes {DEFAULT_EDITOR_MODE = 0, ENEMY_EDITOR_MODE};
 
 
 class EditorState
@@ -39,6 +39,7 @@ private:
   TileMap* tileMap;
 
   std::vector<EditorMode*> modes;
+  unsigned activeMode;
 
   // functions
 

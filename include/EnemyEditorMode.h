@@ -7,7 +7,18 @@
 class EnemyEditorMode : public EditorMode {
 
 private:
-  EnemySpawner* enemySpawner;
+  sf::Text cursorText;
+  sf::RectangleShape sidebar;
+  sf::RectangleShape selectorRect;
+  sf::IntRect textureRect;
+
+  int type;
+  int amount;
+  int timeToSpawn;
+  float maxDistance;
+
+  void initGui();
+  void initVariables();
 
 public:
   EnemyEditorMode(StateData* state_data, TileMap* tile_map, EditorStateData* editor_state_data);

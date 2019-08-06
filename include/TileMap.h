@@ -39,13 +39,13 @@ public:
   const sf::Vector2i& getMaxSizeGrid() const;
   const sf::Vector2f& getMaxSizeF() const;
 
-
   // functions
   void addTile(const int x, const int y, const int z, const sf::IntRect& texture_rect, const bool collision, const short type);
-  void removeTile(const int x, const int y, const int z);
+  void removeTile(const int x, const int y, const int z, const int type = -1);
 
   void loadFromFile(const std::string file_name);
   void saveToFile(const std::string file_name);
+  const bool checkType(const int x, const int y, const int z, const short type) const;
 
   void update(Entity* entity, const float& dt);
 
