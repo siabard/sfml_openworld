@@ -45,7 +45,7 @@ void EnemyEditorMode::updateInput(const float& dt) {
   // Add a Tile
   if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->getKeytime()) {
     if(!this->sidebar.getGlobalBounds().contains(sf::Vector2f(*this->editorStateData->mousePosWindow))) {
-      this->tileMap->addTile(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0, this->textureRect, false, TileTypes::ENEMYSPAWNER);
+      this->tileMap->addTile(TileTypes::ENEMYSPAWNER, this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0, this->textureRect, false);
     }
   } else if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && this->getKeytime()) {
     // remove a tile

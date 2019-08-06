@@ -3,8 +3,8 @@
 
 EnemySpawner::EnemySpawner(int x, int y, float gridSizeF,
                            const sf::Texture& texture, const sf::IntRect& rect,
-                           float grid_size, int enemyType, int enemyAmount, int enemyTimeToSpawn, float enemyMaxDistance)
-  : Tile(x, y, gridSizeF, texture, rect, false, TileTypes::ENEMYSPAWNER), enemyType(enemyType), enemyAmount(enemyAmount), enemyTimeToSpawn(enemyTimeToSpawn), enemyMaxDistance(enemyMaxDistance) {
+                           int enemyType, int enemyAmount, int enemyTimeToSpawn, float enemyMaxDistance)
+  : Tile(TileTypes::ENEMYSPAWNER, x, y, gridSizeF, texture, rect, false), enemyType(enemyType), enemyAmount(enemyAmount), enemyTimeToSpawn(enemyTimeToSpawn), enemyMaxDistance(enemyMaxDistance) {
 
 
 }
@@ -12,6 +12,31 @@ EnemySpawner::EnemySpawner(int x, int y, float gridSizeF,
 EnemySpawner::~EnemySpawner() {}
 
 // functions
+
+const std::string EnemySpawner::getAsString() const {
+  std::stringstream ss;
+
+  /**
+     x, y, z (done in tilemap save)
+     type,
+     rect x, rect y,
+     enmy type,
+     enmy amount,
+     enmy tts,
+     enmy distance,
+   */
+  ss << this->type << " "
+     << this->shape.getTextureRect().left << " "
+     << this->shape.getTextureRect().top << " "
+     << this->enemyType << " "
+     << this->enemyAmount << " "
+     << this->enemyTimeToSpawn << " "
+     << this->enemyMaxDistance
+    ;
+
+  return ss.str();
+}
+
 void EnemySpawner::update() {
 
 }

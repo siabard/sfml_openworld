@@ -3,6 +3,13 @@
 
 #include "Entity.h"
 #include "Tile.h"
+#include "RegularTile.h"
+#include "EnemySpawner.h"
+
+class Tile;
+class RegularTile;
+class Entity;
+class EnemySpawner;
 
 class TileMap {
 private:
@@ -40,7 +47,7 @@ public:
   const sf::Vector2f& getMaxSizeF() const;
 
   // functions
-  void addTile(const int x, const int y, const int z, const sf::IntRect& texture_rect, const bool collision, const short type);
+  void addTile(const short type, const int x, const int y, const int z, const sf::IntRect& texture_rect, const bool collision);
   void removeTile(const int x, const int y, const int z, const int type = -1);
 
   void loadFromFile(const std::string file_name);

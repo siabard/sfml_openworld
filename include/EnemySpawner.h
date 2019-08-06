@@ -13,8 +13,12 @@ private:
   float enemyMaxDistance;
 
 public:
-  EnemySpawner(int x, int y, float gridSizeF, const sf::Texture& texture, const sf::IntRect& rect,  float grid_size, int enemyType, int enemyAmount, int enemyTimeToSpawn, float enemyMaxDistance);
+  EnemySpawner(int x, int y, float gridSizeF,
+               const sf::Texture& texture, const sf::IntRect& rect,
+               int enemyType,
+               int enemyAmount, int enemyTimeToSpawn, float enemyMaxDistance);
   virtual ~EnemySpawner();
+  virtual const std::string getAsString() const;
 
   // functions
   void update();

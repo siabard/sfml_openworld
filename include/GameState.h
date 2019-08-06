@@ -4,7 +4,7 @@
 #include "State.h"
 #include "Entity.h"
 #include "Player.h"
-#include "Enemy.h"
+#include "Enemies_include.h"
 #include "PauseMenu.h"
 #include "TileMap.h"
 #include "PlayerGUI.h"
