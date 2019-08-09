@@ -3,7 +3,7 @@
 
 #include "Tile.h"
 
-class EnemySpawner
+class EnemySpawnerTile
   : public Tile {
 private:
 
@@ -13,11 +13,11 @@ private:
   float enemyMaxDistance;
 
 public:
-  EnemySpawner(int x, int y, float gridSizeF,
+  EnemySpawnerTile(int x, int y, float gridSizeF,
                const sf::Texture& texture, const sf::IntRect& rect,
                int enemyType,
                int enemyAmount, int enemyTimeToSpawn, float enemyMaxDistance);
-  virtual ~EnemySpawner();
+  virtual ~EnemySpawnerTile();
   virtual const std::string getAsString() const;
 
   // functions

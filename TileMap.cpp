@@ -181,13 +181,25 @@ void TileMap::addTile(const short type, const int x, const int y, const int z, c
       z >= 0
       ) {
 
-    if (type == TileTypes::DEFAULT) {
-      this->map[x][y][z].push_back(new RegularTile(type, x, y, this->gridSizeF, this->tileSheet, texture_rect, collision));
-    } else if (type == TileTypes::ENEMYSPAWNER) {
-      this->map[x][y][z].push_back(new EnemySpawner(x, y, this->gridSizeF, this->tileSheet, texture_rect, 0, 0, 0, 0));
-    }
+    this->map[x][y][z].push_back(new RegularTile(type, x, y, this->gridSizeF, this->tileSheet, texture_rect, collision));
+
   }
 
+}
+
+void TileMap::addTile(const int x, const int y, const int z, const sf::IntRect& texture_rect,
+                      const int enemy_type, const int enemy_amount, const int enemy_tts, const int enemy_md) {
+
+  if( x < this->maxSizeWorldGrid.x &&
+      x >= 0 &&
+      y < this->maxSizeWorldGrid.y &&
+      y >= 0 &&
+      z < this->layers &&
+      z >= 0
+      ) {
+    this->map[x][y][z].push_back(new EnemySpawnerTile(x, y, this->gridSizeF, this->tileSheet, texture_rect, enemy_type, enemy_amount, enemy_tts, enemy_md));
+
+  }
 }
 
 void TileMap::removeTile(const int x, const int y, const int z, const int type) {
@@ -281,7 +293,7 @@ void TileMap::loadFromFile(const std::string file_name) {
           ;
 
         this->map[x][y][z].push_back(
-                                     new EnemySpawner(x, y,
+                                     new EnemySpawnerTile(x, y,
                                                       gridSizeF,
                                                       this->tileSheet,
                                                       sf::IntRect(tr_x, tr_y, gridSizeI, gridSizeI),
