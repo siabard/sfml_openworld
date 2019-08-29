@@ -55,6 +55,9 @@ public:
   void saveToFile(const std::string file_name);
   const bool checkType(const int x, const int y, const int z, const short type) const;
 
+  void updateWorldBoundsCollision(Entity* entity, const float& dt);
+  void updateTileCollision(Entity* entity, const float& dt);
+  void updateTiles(Entity* entity, const float& dt);
   void update(Entity* entity, const float& dt);
 
   void render(sf::RenderTarget& target, const sf::Vector2i& gridPosition, sf::Shader* shader = nullptr, const  sf::Vector2f playerPosition = sf::Vector2f(), const bool show_collision = false);

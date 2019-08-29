@@ -4,7 +4,7 @@
 EnemySpawnerTile::EnemySpawnerTile(int x, int y, float gridSizeF,
                            const sf::Texture& texture, const sf::IntRect& rect,
                            int enemyType, int enemyAmount, int enemyTimeToSpawn, float enemyMaxDistance)
-  : Tile(TileTypes::ENEMYSPAWNER, x, y, gridSizeF, texture, rect, false), enemyType(enemyType), enemyAmount(enemyAmount), enemyTimeToSpawn(enemyTimeToSpawn), enemyMaxDistance(enemyMaxDistance) {
+  : Tile(TileTypes::ENEMYSPAWNER, x, y, gridSizeF, texture, rect, false), enemyType(enemyType), enemyAmount(enemyAmount), enemyTimeToSpawn(enemyTimeToSpawn), enemyMaxDistance(enemyMaxDistance), spawned(false) {
 
 
 }
@@ -35,6 +35,14 @@ const std::string EnemySpawnerTile::getAsString() const {
     ;
 
   return ss.str();
+}
+
+void EnemySpawnerTile::setSpawned(const bool spawned) {
+  this->spawned = spawned;
+}
+
+bool EnemySpawnerTile::getSpawned() const {
+  return this->spawned;
 }
 
 void EnemySpawnerTile::update() {

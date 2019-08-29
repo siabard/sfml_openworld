@@ -11,6 +11,7 @@ private:
   int enemyAmount;
   int enemyTimeToSpawn;
   float enemyMaxDistance;
+  bool spawned;
 
 public:
   EnemySpawnerTile(int x, int y, float gridSizeF,
@@ -19,6 +20,10 @@ public:
                int enemyAmount, int enemyTimeToSpawn, float enemyMaxDistance);
   virtual ~EnemySpawnerTile();
   virtual const std::string getAsString() const;
+
+  // accessors
+  void setSpawned(const bool spawned);
+  bool getSpawned() const;
 
   // functions
   void update();
