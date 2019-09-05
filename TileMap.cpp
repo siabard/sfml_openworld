@@ -517,7 +517,8 @@ void TileMap::updateTileCollision(Entity* entity, const float& dt) {
   }
 }
 
-void TileMap::updateTiles(Entity* entity, const float& dt) {
+void TileMap::updateTiles(Entity* entity, const float& dt,
+                          EnemySystem* enemySystem) {
   // TILES : check around player
 
   this->layer = 0;
@@ -555,8 +556,12 @@ void TileMap::updateTiles(Entity* entity, const float& dt) {
 
           if (this->map[x][y][this->layer][k]->getType() == TileTypes::ENEMYSPAWNER) {
             EnemySpawnerTile* es = dynamic_cast<EnemySpawnerTile*>(this->map[x][y][this->layer][k]);
-            if (es && !es->getSpawned()) {
-              es->setSpawned(true);
+            if (es ) {
+              if(!es->getSpawned()) {
+                enemySystem->createEnemy(EnemyTypes::RAT, x*this->gridSizeF, y*this->gridSizeF);
+
+                es->setSpawned(true);
+              }
             }
           }
         }
@@ -564,7 +569,6 @@ void TileMap::updateTiles(Entity* entity, const float& dt) {
     }
   }
 }
-
 
 void TileMap::update(Entity* entity, const float& dt) {
 

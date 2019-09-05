@@ -5,11 +5,13 @@
 #include "Tile.h"
 #include "RegularTile.h"
 #include "EnemySpawnerTile.h"
+#include "EnemySystem.h"
 
 class Tile;
 class RegularTile;
 class Entity;
 class EnemySpawner;
+class Enemy;
 
 class TileMap {
 private:
@@ -57,7 +59,7 @@ public:
 
   void updateWorldBoundsCollision(Entity* entity, const float& dt);
   void updateTileCollision(Entity* entity, const float& dt);
-  void updateTiles(Entity* entity, const float& dt);
+  void updateTiles(Entity* entity, const float& dt, EnemySystem* enemySystem);
   void update(Entity* entity, const float& dt);
 
   void render(sf::RenderTarget& target, const sf::Vector2i& gridPosition, sf::Shader* shader = nullptr, const  sf::Vector2f playerPosition = sf::Vector2f(), const bool show_collision = false);

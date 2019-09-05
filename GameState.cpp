@@ -90,6 +90,10 @@ void GameState::initTileMap() {
   this->tileMap = new TileMap("text.slmp");
 }
 
+void GameState::initEnemySystem() {
+  this->enemySystem = new EnemySystem( this->activeEnemies, this->textures );
+}
+
 // Constructor
 GameState::GameState(StateData* state_data) : State(state_data) {
   this->initDeferredRender();
@@ -99,8 +103,11 @@ GameState::GameState(StateData* state_data) : State(state_data) {
   this->initTextures();
   this->initPauseMenu();
   this->initShaders();
+
+
   this->initPlayers();
   this->initPlayerGUI();
+  this->initEnemySystem();
   this->initTileMap();
 
 }
@@ -112,6 +119,8 @@ GameState::~GameState() {
   if(this->player) {
     delete this->player;
   }
+
+  delete this->enemySystem;
 
   for(size_t i = 0; i < this->activeEnemies.size(); i++) {
     delete this->activeEnemies[i];
@@ -224,7 +233,7 @@ void GameState::updatePlayerInput(const float& dt) {
 void GameState::updateTileMap(const float& dt) {
   this->tileMap->updateWorldBoundsCollision(this->player, dt);
   this->tileMap->updateTileCollision(this->player, dt);
-  this->tileMap->updateTiles(this->player, dt);
+  this->tileMap->updateTiles(this->player, dt, this->enemySystem);
 
   for(auto *i: this->activeEnemies) {
     this->tileMap->updateWorldBoundsCollision(i, dt);
@@ -246,7 +255,7 @@ void GameState::render(sf::RenderTarget* target) {
   this->tileMap->render(this->renderTexture, this->viewGridPosition, &this->core_shader, this->player->getCenter(), false);
 
   for(auto *i: this->activeEnemies) {
-    i->render(this->renderTexture, &this->core_shader, this->player->getCenter(), true);
+    i->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false);
   }
 
   this->player->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false);

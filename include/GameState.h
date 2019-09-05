@@ -4,12 +4,12 @@
 #include "State.h"
 #include "Entity.h"
 #include "Player.h"
-#include "Enemies_include.h"
 #include "PauseMenu.h"
 #include "TileMap.h"
 #include "PlayerGUI.h"
 #include "Swoard.h"
 #include "Bow.h"
+#include "EnemySystem.h"
 
 class PauseMenu;
 class Player;
@@ -36,6 +36,7 @@ private:
   sf::Shader core_shader;
 
   std::vector<Enemy*> activeEnemies;
+  EnemySystem* enemySystem;
 
   // functions
   void initDeferredRender();
@@ -48,6 +49,7 @@ private:
   void initPauseMenu();
   void initShaders();
   void initTileMap();
+  void initEnemySystem();
 
 public:
   GameState(StateData* state_date);
