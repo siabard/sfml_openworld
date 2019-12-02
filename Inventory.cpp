@@ -13,7 +13,7 @@ void Inventory::initialize() {
 void Inventory::expand() {}
 
 void Inventory::nullify(const unsigned from) {
-  for(size_t i = from; i < this->capaticy; i++) {
+  for(size_t i = from; i < this->capacity; i++) {
     this->itemArray[i] = nullptr;
   }
 }
@@ -62,13 +62,37 @@ const bool Inventory::empty() const {
 }
 
 const bool Inventory::add(Item* item) {
+  if (this->nrOfItems < this->capacity) {
+    this->itemArray[this->nrOfItems++] = item->clone();
 
+    return true;
+  } else {
+    return false;
+  }
 }
 
 const bool Inventory::remove(const unsigned index) {
+  if (this->nrOfItems > 0) {
+    if(index < 0 || index >= this->capacity) {
+      return false;
+    } else {
+
+      delete this->itemArray[index];
+      this->itemArray[index] = nullptr;
+      --this->nrOfItems;
+      return true;
+    }
+
+  } else {
+    return false;
+  }
 
 }
 
-const bool Inventory::saveToFile(const std::string fileName) {}
+const bool Inventory::saveToFile(const std::string fileName) {
+  return false;
+}
 
-const bool Inventory::loadFromFile(const std::string fileName) {}
+const bool Inventory::loadFromFile(const std::string fileName) {
+  return false;
+}

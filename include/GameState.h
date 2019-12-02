@@ -7,7 +7,7 @@
 #include "PauseMenu.h"
 #include "TileMap.h"
 #include "PlayerGUI.h"
-#include "Swoard.h"
+#include "Sword.h"
 #include "Bow.h"
 #include "EnemySystem.h"
 

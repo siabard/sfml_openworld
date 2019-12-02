@@ -5,8 +5,10 @@
 
 class RangedWeapon : public Item {
 public:
-  RangedWeapon();
+  RangedWeapon(unsigned value);
   virtual ~RangedWeapon();
+
+  virtual RangedWeapon* clone() = 0;
 };
 
 #endif

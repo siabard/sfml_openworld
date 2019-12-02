@@ -4,7 +4,17 @@
 // Initializer Function
 void Player::initVariables() {
   this->attacking = false;
+  this->sword = new Sword(20);
+
 }
+
+void Player::initInventory() {
+  this->inventory = new Inventory(100);
+
+  this->inventory->add( this->sword );
+
+}
+
 void Player::initComponents() {
 
 }
@@ -16,6 +26,7 @@ void Player::initAnimation() {
   this->animationComponent->addAnimation("WALK_RIGHT", 11.f, 8, 1, 11, 1, 64, 64);
   this->animationComponent->addAnimation("WALK_UP", 11.f, 12, 1, 15, 1, 64, 64);
   this->animationComponent->addAnimation("ATTACK", 5.f, 0, 2, 1, 2, 64, 64);
+
 }
 
 Player::Player(float x, float y, sf::Texture& texture) {
@@ -30,9 +41,15 @@ Player::Player(float x, float y, sf::Texture& texture) {
 
   this->setPosition(x, y);
   this->initAnimation();
+
+  this->initInventory();
 }
 
-Player::~Player() {}
+Player::~Player() {
+  delete this->inventory;
+  delete this->sword;
+
+}
 
 // accessors
 AttributeComponent* Player::getAttributeComponent() {
@@ -96,7 +113,7 @@ void Player::update(const float& dt, sf::Vector2f& mouse_pos_view) {
 
   this->hitboxComponent->update();
 
-  this->swoard.update(mouse_pos_view, this->getCenter());
+  this->sword->update(mouse_pos_view, this->getCenter());
 }
 
 
@@ -110,10 +127,10 @@ void Player::render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vect
 
     shader->setUniform("hasTexture", true);
     shader->setUniform("lightPos", light_position);
-    this->swoard.render(target, shader);
+    this->sword->render(target, shader);
   } else {
     target.draw(this->sprite);
-    this->swoard.render(target);
+    this->sword->render(target);
   }
 
   if (show_hitbox) {

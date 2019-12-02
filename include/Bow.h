@@ -9,8 +9,10 @@ private:
 
 public:
 
-  Bow();
+  Bow(unsigned value);
   virtual ~Bow();
+
+  virtual Bow* clone();
 };
 
 #endif

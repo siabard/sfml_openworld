@@ -3,17 +3,21 @@
 
 #include "Entity.h"
 #include "AttributeComponent.h"
-#include "Swoard.h"
+#include "Items.h"
+#include "Inventory.h"
 
 class Player :
   public Entity {
 private:
   // variables
   bool attacking;
-  Swoard swoard;
+  Sword* sword;
+
+  Inventory* inventory;
 
   // initializer function
   void initVariables();
+  void initInventory();
   void initComponents();
   void initAnimation();
 

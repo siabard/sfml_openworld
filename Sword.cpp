@@ -1,7 +1,7 @@
 #include "include/stdafx.h"
-#include "include/Swoard.h"
+#include "include/Sword.h"
 
-Swoard::Swoard() {
+Sword::Sword(unsigned value) : MeleeWeapon(value) {
 
   // Visual Weapon
   if(!this->weapon_texture.loadFromFile("Resource/images/sprites/player/sword.png")) {
@@ -16,9 +16,9 @@ Swoard::Swoard() {
 }
 
 
-Swoard::~Swoard() {}
+Sword::~Sword() {}
 
-void Swoard::update(const sf::Vector2f& mouse_pos_view, const sf::Vector2f center) {
+void Sword::update(const sf::Vector2f& mouse_pos_view, const sf::Vector2f center) {
   // update visual weapon
   this->weapon_sprite.setPosition(center);
 
@@ -32,10 +32,14 @@ void Swoard::update(const sf::Vector2f& mouse_pos_view, const sf::Vector2f cente
 
 }
 
-void Swoard::render(sf::RenderTarget& target, sf::Shader* shader)  {
+void Sword::render(sf::RenderTarget& target, sf::Shader* shader)  {
   if(shader) {
     target.draw(this->weapon_sprite, shader);
   } else {
     target.draw(this->weapon_sprite);
   }
+}
+
+Sword* Sword::clone() {
+  return new Sword(*this);
 }
