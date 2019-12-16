@@ -12,6 +12,7 @@ protected:
   short unsigned type;
   unsigned value;
 
+
 public:
   Item(unsigned value);
   virtual ~Item();

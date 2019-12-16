@@ -11,7 +11,7 @@ class Player :
 private:
   // variables
   bool attacking;
-  Sword* sword;
+  Weapon* weapon;
 
   Inventory* inventory;
 
@@ -28,6 +28,7 @@ public:
 
   // accessors
   AttributeComponent* getAttributeComponent();
+  const Weapon* getWeapon() const;
 
   // functions
   void loseHP(const int hp);

@@ -4,14 +4,14 @@
 // Initializer Function
 void Player::initVariables() {
   this->attacking = false;
-  this->sword = new Sword(20);
+  this->weapon = new Sword(20, "./Resource/images/sprites/player/sword.png");
 
 }
 
 void Player::initInventory() {
   this->inventory = new Inventory(100);
 
-  this->inventory->add( this->sword );
+  this->inventory->add( this->weapon );
 
 }
 
@@ -47,7 +47,7 @@ Player::Player(float x, float y, sf::Texture& texture) {
 
 Player::~Player() {
   delete this->inventory;
-  delete this->sword;
+  delete this->weapon;
 
 }
 
@@ -73,6 +73,10 @@ void Player::loseEXP(const int exp) {
 void Player::gainEXP(const int exp) {
   this->attributeComponent->gainExp(exp);
 
+}
+
+const Weapon* Player::getWeapon() const {
+  return this->weapon;
 }
 
 void Player::updateAttack() {
@@ -113,7 +117,7 @@ void Player::update(const float& dt, sf::Vector2f& mouse_pos_view) {
 
   this->hitboxComponent->update();
 
-  this->sword->update(mouse_pos_view, this->getCenter());
+  this->weapon->update(mouse_pos_view, this->getCenter());
 }
 
 
@@ -127,10 +131,10 @@ void Player::render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vect
 
     shader->setUniform("hasTexture", true);
     shader->setUniform("lightPos", light_position);
-    this->sword->render(target, shader);
+    this->weapon->render(target, shader);
   } else {
     target.draw(this->sprite);
-    this->sword->render(target);
+    this->weapon->render(target);
   }
 
   if (show_hitbox) {
