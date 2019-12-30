@@ -164,19 +164,33 @@ void GameState::updatePlayer(const float& dt) {
 
 }
 
-void GameState::updateEnemies(const float& dt) {
+void GameState::updateCombatAndEnemies(const float& dt) {
+  int index = 0;
+
+  for(auto *enemy: this->activeEnemies) {
+
+    enemy->update(dt, this->mousePosView);
+
+    this->tileMap->updateWorldBoundsCollision(enemy, dt);
+    this->tileMap->updateTileCollision(enemy, dt);
+
+    this->updateCombat(enemy, index, dt);
+
+    ++index;
+  }
 
   //this->activeEnemies.push_back(new Rat(200.f, 100.f, this->textures["RAT1_SHEET"]));
 }
 
-void GameState::updateCombat(const float& dt) {
-  for (auto i: this->activeEnemies) {
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-      if(i->getGlobalBounds().contains(this->mousePosView) && std::abs(this->player->getPosition().x - i->getPosition().x) < this->player->getWeapon()->getRange()) {
-        // TODO: Attack function
-      }
+void GameState::updateCombat(Enemy* enemy, const int index, const float& dt) {
+
+  if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    if(enemy->getGlobalBounds().contains(this->mousePosView) && enemy->getDistance(*this->player) < 30.f) {
+      enemy->loseHP(1);
+      std::cout << enemy->getAttributeComp()->hp << std::endl;
     }
   }
+
 }
 
 void GameState::update(const float& dt) {
@@ -193,11 +207,7 @@ void GameState::update(const float& dt) {
     this->playerGUI->update(dt);
 
     // update all enemies
-    for(auto *i: this->activeEnemies) {
-      i->update(dt, this->mousePosView);
-    }
-
-    this->updateCombat(dt);
+    this->updateCombatAndEnemies(dt);
 
 
   } else {
@@ -249,10 +259,7 @@ void GameState::updateTileMap(const float& dt) {
   this->tileMap->updateTileCollision(this->player, dt);
   this->tileMap->updateTiles(this->player, dt, this->enemySystem);
 
-  for(auto *i: this->activeEnemies) {
-    this->tileMap->updateWorldBoundsCollision(i, dt);
-    this->tileMap->updateTileCollision(i, dt);
-  }
+
 }
 
 void GameState::updatePauseMenuButtons() {
@@ -268,8 +275,8 @@ void GameState::render(sf::RenderTarget* target) {
   this->renderTexture.setView(this->view);
   this->tileMap->render(this->renderTexture, this->viewGridPosition, &this->core_shader, this->player->getCenter(), false);
 
-  for(auto *i: this->activeEnemies) {
-    i->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false);
+  for(auto *enemy: this->activeEnemies) {
+    enemy->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false);
   }
 
   this->player->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false);

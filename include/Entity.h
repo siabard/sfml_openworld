@@ -47,8 +47,13 @@ public:
   virtual void stopVelocity();
   virtual void stopVelocityX();
   virtual void stopVelocityY();
+
+  // Calculations
+  virtual const float getDistance(const Entity& point) const;
+
   virtual void update(const float& dt, sf::Vector2f& mouse_pos_view) = 0;
   virtual void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const sf::Vector2f light_position = sf::Vector2f(), const bool show_hitbox = false) = 0;
+
 };
 
 #endif

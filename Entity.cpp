@@ -145,3 +145,11 @@ void Entity::createAttributeComponent(const unsigned level) {
 void Entity::createSkillComponent() {
   this->skillComponent = new SkillComponent();
 }
+
+// Calculations
+const float Entity::getDistance(const Entity& point) const {
+  // sqrt((x2-x1)^2 + (y2-y1)^2);
+
+  return sqrt(pow(this->getCenter().x - point.getCenter().x, 2) + pow(this->getCenter().y - point.getCenter().y ,2));
+
+}
