@@ -176,6 +176,13 @@ void GameState::updateCombatAndEnemies(const float& dt) {
 
     this->updateCombat(enemy, index, dt);
 
+    // Dangerours!
+    if (enemy->isDead()) {
+      this->player->gainEXP(enemy->getGainExp());
+      this->activeEnemies.erase(this->activeEnemies.begin() + index);
+      --index;
+    }
+
     ++index;
   }
 
@@ -186,7 +193,7 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float& dt) {
 
   if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
     if(enemy->getGlobalBounds().contains(this->mousePosView) && enemy->getDistance(*this->player) < 30.f) {
-      enemy->loseHP(1);
+      enemy->loseHP( this->player->getWeapon()->getDamageMin() );
       std::cout << enemy->getAttributeComp()->hp << std::endl;
     }
   }
