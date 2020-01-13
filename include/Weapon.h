@@ -20,6 +20,9 @@ protected:
   float cooldownMax;
   float cooldownIteration;
 
+  sf::Clock attackTimer;
+  sf::Int32 attackTimerMax;
+
 public:
   Weapon(unsigned value, std::string texture_file);
   virtual ~Weapon();
@@ -28,6 +31,8 @@ public:
   const unsigned getRange() const;
   const unsigned getDamageMin() const;
   const unsigned getDamageMax() const;
+
+  const bool getAttackTimer();
 
   // functions
   virtual void update(const sf::Vector2f& mouse_pos_view, const sf::Vector2f center)  = 0;

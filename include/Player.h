@@ -28,14 +28,13 @@ public:
 
   // accessors
   AttributeComponent* getAttributeComponent();
-  const Weapon* getWeapon() const;
+  Weapon* getWeapon();
 
   // functions
   void loseHP(const int hp);
   void gainHP(const int hp);
   void loseEXP(const int exp);
   void gainEXP(const int exp);
-  void updateAttack();
   void updateAnimation(const float& dt);
   void update(const float& dt, sf::Vector2f& mouse_pos_view);
   void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const sf::Vector2f light_position = sf::Vector2f(), const bool show_hitbox = false);
