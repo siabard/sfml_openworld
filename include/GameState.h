@@ -1,6 +1,7 @@
 #ifndef __GAME_STATES_H__
 #define __GAME_STATES_H__
 
+#include "TextTagSystem.h"
 #include "State.h"
 #include "Entity.h"
 #include "Player.h"
@@ -30,6 +31,9 @@ private:
 
   TileMap* tileMap;
 
+  // System
+  TextTagSystem *tts;
+
   sf::Font font;
   PauseMenu* pmenu;
 
@@ -50,6 +54,7 @@ private:
   void initShaders();
   void initTileMap();
   void initEnemySystem();
+  void initSystem();
 
 public:
   GameState(StateData* state_date);

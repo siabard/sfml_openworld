@@ -94,6 +94,10 @@ void GameState::initEnemySystem() {
   this->enemySystem = new EnemySystem( this->activeEnemies, this->textures );
 }
 
+void GameState::initSystem() {
+  this->tts = new TextTagSystem("fonts/DroidSans.ttf");
+}
+
 // Constructor
 GameState::GameState(StateData* state_data) : State(state_data) {
   this->initDeferredRender();
@@ -103,7 +107,7 @@ GameState::GameState(StateData* state_data) : State(state_data) {
   this->initTextures();
   this->initPauseMenu();
   this->initShaders();
-
+  this->initSystem();
 
   this->initPlayers();
   this->initPlayerGUI();
@@ -129,6 +133,8 @@ GameState::~GameState() {
   delete this->pmenu;
 
   delete this->tileMap;
+
+  delete this->tts;
 }
 
 // functions
@@ -218,6 +224,9 @@ void GameState::update(const float& dt) {
     // update all enemies
     this->updateCombatAndEnemies(dt);
 
+    // update systems
+    this->tts->update(dt);
+
 
   } else {
     // paused update
@@ -250,17 +259,13 @@ void GameState::updatePlayerInput(const float& dt) {
     this->player->move(1.f, 0.f, dt);
 
   if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP")))) {
-    if(this->getKeytime())
-      this->player->gainEXP(10);
     this->player->move(0.f, -1.f, dt);
   }
 
   if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))) {
     this->player->move(0.f, 1.f, dt);
-    if(this->getKeytime())
-      this->player->loseEXP(10);
+    this->tts->addTextTagString(DEFAULT_TAG, this->player->getCenter().x, this->player->getCenter().y, "walking down");
   }
-
 }
 
 void GameState::updateTileMap(const float& dt) {
@@ -291,6 +296,8 @@ void GameState::render(sf::RenderTarget* target) {
   this->player->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false);
 
   this->tileMap->renderDeferred(this->renderTexture, &this->core_shader, this->player->getCenter());
+
+  this->tts->render(this->renderTexture);
 
   // Render GUI
   this->renderTexture.setView(this->renderTexture.getDefaultView());

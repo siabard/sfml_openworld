@@ -3,6 +3,8 @@
 
 #include "stdafx.h"
 
+enum TAG_TYPES {DEFAULT_TAG, NEGATIVE_TAG, POSITIVE_TAG, EXPERIENCE_TAG, ENVIRONMENTAL_TAG};
+
 class TextTagSystem {
  private:
 
@@ -29,6 +31,23 @@ class TextTagSystem {
       this->speed = speed;
     }
 
+
+    TextTag(TextTag* tag, float pos_x, float pos_y, const std::string str) {
+      this->text = tag->text;
+      this->text.setString(str);
+      this->text.setPosition(pos_x, pos_y);
+
+      this->dirX = tag->dirX;
+      this->dirY = tag->dirY;
+      this->lifetime = tag->lifetime;
+      this->speed = tag->speed;
+    }
+
+
+
+
+
+
     ~TextTag() {}
 
     inline const bool canBeRemoved() const {
@@ -37,29 +56,37 @@ class TextTagSystem {
 
     void update(const float dt) {
       if(this->lifetime > 0.f) {
+        // Update the lifetime
         this->lifetime -= 100.f * dt;
 
-
+        // Move the tag
+        this->text.move( this->dirX * this->speed * dt, this->dirY * this->speed * dt);
       }
     }
-    void render(sf::RenderTarget* target) {
-      target->draw(this->text);
+    void render(sf::RenderTarget& target) {
+      target.draw(this->text);
     }
   };
 
   sf::Font font;
+  std::map<unsigned, TextTag* > tagTemplates;
   std::vector<TextTag*> tags;
 
+  // private functions
+  void initVariables();
+  void initFonts(std::string font_file);
+  void initTagTemplates();
+
  public:
-  TextTagSystem();
+  TextTagSystem(std::string font_file);
   virtual ~TextTagSystem();
 
   // Functions
-  void addTextTag(TextTag* text_tag);
+  void addTextTagString(unsigned tag_type, float pos_x, float pos_y, const std::string str);
   void removeTextTag();
 
   void update(const float &dt);
-  void render(sf::RenderTarget* target);
+  void render(sf::RenderTarget& target);
 };
 
 #endif
