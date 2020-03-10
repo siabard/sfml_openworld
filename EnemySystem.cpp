@@ -14,7 +14,7 @@ void EnemySystem::createEnemy(short type, const float xPos, const float yPos) {
     this->activeEnemies.push_back(new Rat(xPos, yPos, this->textures["RAT1_SHEET"]));
     break;
 
-  defaut:
+  default:
     std::cout << "ERROR::ENEMYSYSTEM::CREATEENEMY::TYPE DOES NOT EXIST" << std::endl;
     break;
   }

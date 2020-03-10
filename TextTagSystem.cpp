@@ -3,7 +3,10 @@
 // private functions
 void TextTagSystem::initVariables() {}
 void TextTagSystem::initTagTemplates() {
-  this->tagTemplates[DEFAULT_TAG] = new TextTag(this->font, "down", 100.f, 100.f, 0.f, -1.f, sf::Color::White, 50, 1000.f, 200.f);
+  this->tagTemplates[DEFAULT_TAG] = new TextTag(this->font, "", 100.f, 100.f, 0.f, -1.f, sf::Color::White, 40, 100.f, 200.f);
+  this->tagTemplates[NEGATIVE_TAG] = new TextTag(this->font, "", 100.f, 100.f, 0.f, 1.f, sf::Color::Red, 40, 100.f, 250.f);
+  this->tagTemplates[EXPERIENCE_TAG] = new TextTag(this->font, "", 100.f, 100.f, 0.f, -1.f, sf::Color::Cyan, 55, 150.f, 250.f);
+
 }
 
 void TextTagSystem::initFonts(std::string font_file) {
@@ -37,20 +40,35 @@ TextTagSystem::~TextTagSystem() {
 
 
 // functions
-void TextTagSystem::addTextTagString(unsigned tag_type, float pos_x, float pos_y, const std::string str) {
-  this->tags.push_back(new TextTag(this->tagTemplates[DEFAULT_TAG], pos_x, pos_y, str));
+void TextTagSystem::addTextTag(unsigned tag_type, float pos_x, float pos_y, const std::string str) {
+  this->tags.push_back(new TextTag(this->tagTemplates[tag_type], pos_x, pos_y, str));
 }
 
-void TextTagSystem::removeTextTag() {
 
+void TextTagSystem::addTextTag(unsigned tag_type, float pos_x, float pos_y, const int val) {
+  std::stringstream ss;
+
+  ss << val;
+
+  this->tags.push_back(new TextTag(this->tagTemplates[tag_type], pos_x, pos_y, ss.str()));
 }
+
+void TextTagSystem::addTextTag(unsigned tag_type, float pos_x, float pos_y, const float val) {
+  std::stringstream ss;
+
+  ss << val;
+
+  this->tags.push_back(new TextTag(this->tagTemplates[tag_type], pos_x, pos_y, ss.str()));
+}
+
 
 void TextTagSystem::update(const float& dt) {
-  for(auto* tag: this->tags) {
-    tag->update(dt);
+  for(size_t i = 0; i < this->tags.size(); i++) {
+    this->tags[i]->update(dt);
 
-    if(tag->canBeRemoved()) {
-      delete tag;
+    if(this->tags[i]->isExpired()) {
+      delete this->tags[i];
+      this->tags.erase(this->tags.begin() + i);
     }
   }
 }

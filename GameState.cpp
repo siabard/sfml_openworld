@@ -185,6 +185,7 @@ void GameState::updateCombatAndEnemies(const float& dt) {
     // Dangerours!
     if (enemy->isDead()) {
       this->player->gainEXP(enemy->getGainExp());
+      this->tts->addTextTag(EXPERIENCE_TAG, this->player->getCenter().x, this->player->getCenter().y, static_cast<int>(enemy->getGainExp()));
       this->activeEnemies.erase(this->activeEnemies.begin() + index);
       --index;
     }
@@ -200,9 +201,11 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float& dt) {
   if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
     if(this->player->getWeapon()->getAttackTimer()
        && enemy->getGlobalBounds().contains(this->mousePosView)
-       && enemy->getDistance(*this->player) < 30.f) {
-      enemy->loseHP( this->player->getWeapon()->getDamageMin() );
-      std::cout << enemy->getAttributeComp()->hp << std::endl;
+       && enemy->getDistance(*this->player) < this->player->getWeapon()->getRange()) {
+      int dmg = static_cast<int>(this->player->getWeapon()->getDamageMax());
+      enemy->loseHP( dmg );
+      this->tts->addTextTag(NEGATIVE_TAG, enemy->getCenter().x, enemy->getCenter().y, static_cast<int>(dmg ));
+
     }
   }
 
@@ -264,7 +267,6 @@ void GameState::updatePlayerInput(const float& dt) {
 
   if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN")))) {
     this->player->move(0.f, 1.f, dt);
-    this->tts->addTextTagString(DEFAULT_TAG, this->player->getCenter().x, this->player->getCenter().y, "walking down");
   }
 }
 

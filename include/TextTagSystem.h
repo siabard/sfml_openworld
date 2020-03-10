@@ -50,7 +50,7 @@ class TextTagSystem {
 
     ~TextTag() {}
 
-    inline const bool canBeRemoved() const {
+    inline const bool isExpired() const {
       return (this->lifetime <= 0.f);
     }
 
@@ -58,6 +58,7 @@ class TextTagSystem {
       if(this->lifetime > 0.f) {
         // Update the lifetime
         this->lifetime -= 100.f * dt;
+        std::cout << this->lifetime << std::endl;
 
         // Move the tag
         this->text.move( this->dirX * this->speed * dt, this->dirY * this->speed * dt);
@@ -82,8 +83,9 @@ class TextTagSystem {
   virtual ~TextTagSystem();
 
   // Functions
-  void addTextTagString(unsigned tag_type, float pos_x, float pos_y, const std::string str);
-  void removeTextTag();
+  void addTextTag(unsigned tag_type, float pos_x, float pos_y, const std::string str);
+  void addTextTag(unsigned tag_type, float pos_x, float pos_y, const int val);
+  void addTextTag(unsigned tag_type, float pos_x, float pos_y, const float val);
 
   void update(const float &dt);
   void render(sf::RenderTarget& target);

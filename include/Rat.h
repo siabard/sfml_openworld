@@ -14,6 +14,7 @@ public:
   // initilizer
   void initVariables();
   void initAnimation();
+  void initGUI();
 
   // functions
   void updateAnimation(const float& dt);

@@ -17,6 +17,9 @@ private:
   virtual void initVariables();
   virtual void initAnimation();
 
+protected:
+  sf::RectangleShape hpBar;
+
 public:
 
   Enemy();

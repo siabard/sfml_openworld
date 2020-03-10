@@ -9,8 +9,8 @@ enum EnemyTypes {RAT = 0};
 
 class EnemySystem {
 private:
-  std::map<std::string, sf::Texture>& textures;
   std::vector<Enemy*>& activeEnemies;
+  std::map<std::string, sf::Texture>& textures;
 
 public:
   EnemySystem(std::vector<Enemy*>& activeEnemies,
