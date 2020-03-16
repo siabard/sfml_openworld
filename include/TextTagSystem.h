@@ -58,7 +58,7 @@ class TextTagSystem {
       if(this->lifetime > 0.f) {
         // Update the lifetime
         this->lifetime -= 100.f * dt;
-        std::cout << this->lifetime << std::endl;
+        //std::cout << this->lifetime << std::endl;
 
         // Move the tag
         this->text.move( this->dirX * this->speed * dt, this->dirY * this->speed * dt);

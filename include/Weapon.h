@@ -25,11 +25,13 @@ protected:
 
 public:
   Weapon(unsigned value, std::string texture_file);
+  Weapon(unsigned damageMin, unsigned damageMax, unsigned range, unsigned value, std::string texture_file);
   virtual ~Weapon();
 
   // accessors
   const unsigned getRange() const;
   const unsigned getDamageMin() const;
+  const unsigned getDamage() const;
   const unsigned getDamageMax() const;
 
   const bool getAttackTimer();

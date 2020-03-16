@@ -4,7 +4,7 @@
 // Initializer Function
 void Player::initVariables() {
   this->attacking = false;
-  this->weapon = new Sword(20, "./Resource/images/sprites/player/sword.png");
+  this->weapon = new Sword(2, 5, 60, 20, "./Resource/images/sprites/player/sword.png");
 
 }
 
