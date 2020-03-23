@@ -18,8 +18,8 @@ void Weapon::initCooldown() {
   this->cooldownIteration = 1.f;
 }
 
-Weapon::Weapon(unsigned value, std::string texture_file)
-  : Item(value) {
+Weapon::Weapon(unsigned level, unsigned value, std::string texture_file)
+  : Item(level, value) {
 
   this->initVariables();
   // Visual Weapon
@@ -32,7 +32,7 @@ Weapon::Weapon(unsigned value, std::string texture_file)
 
 }
 
-Weapon::Weapon(unsigned damageMin, unsigned damageMax, unsigned range, unsigned value, std::string texture_file) : Item(value), damageMin(damageMin), damageMax(damageMax), range(range) {
+Weapon::Weapon(unsigned level, unsigned damageMin, unsigned damageMax, unsigned range, unsigned value, std::string texture_file) : Item(level, value), damageMin(damageMin), damageMax(damageMax), range(range) {
   this->initVariables();
 
   // Visual Weapon

@@ -9,7 +9,7 @@ private:
 
 public:
 
-  Bow(unsigned value, std::string texture_file);
+  Bow(unsigned level, unsigned value, std::string texture_file);
   virtual ~Bow();
 
   virtual Bow* clone();

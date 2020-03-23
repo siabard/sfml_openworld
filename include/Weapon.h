@@ -24,8 +24,8 @@ protected:
   sf::Int32 attackTimerMax;
 
 public:
-  Weapon(unsigned value, std::string texture_file);
-  Weapon(unsigned damageMin, unsigned damageMax, unsigned range, unsigned value, std::string texture_file);
+  Weapon(unsigned level, unsigned value, std::string texture_file);
+  Weapon(unsigned level, unsigned damageMin, unsigned damageMax, unsigned range, unsigned value, std::string texture_file);
   virtual ~Weapon();
 
   // accessors
@@ -42,6 +42,7 @@ public:
 
 
   virtual Weapon* clone() = 0;
+  virtual void generate(const unsigned levelMin, const unsigned levelMax) = 0;
 };
 
 #endif
