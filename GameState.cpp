@@ -190,7 +190,7 @@ void GameState::updateCombatAndEnemies(const float& dt) {
     // Dangerours!
     if (enemy->isDead()) {
       this->player->gainEXP(enemy->getGainExp());
-      this->tts->addTextTag(EXPERIENCE_TAG, this->player->getCenter().x, this->player->getCenter().y, static_cast<int>(enemy->getGainExp()));
+      this->tts->addTextTag(EXPERIENCE_TAG, this->player->getCenter().x, this->player->getCenter().y, static_cast<int>(enemy->getGainExp()), "", "+EXP");
       this->activeEnemies.erase(this->activeEnemies.begin() + index);
       --index;
     }
@@ -210,7 +210,7 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float& dt) {
 
       int dmg = static_cast<int>(this->player->getWeapon()->getDamage());
       enemy->loseHP( dmg );
-      this->tts->addTextTag(NEGATIVE_TAG, enemy->getCenter().x, enemy->getCenter().y, static_cast<int>(dmg ));
+      this->tts->addTextTag(NEGATIVE_TAG, enemy->getCenter().x, enemy->getCenter().y, static_cast<int>(dmg ), "", "-HP");
 
     }
   }

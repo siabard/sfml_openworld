@@ -10,7 +10,7 @@ Rat::Rat(float x, float y, sf::Texture& texture)
   this->createMovementComponent(50.f, 1600.f, 1000.f);
   this->createAnimationComponent(texture);
   this->createAttributeComponent(1);
-
+  this->generateAttributes(this->attributeComponent->level);
   this->setPosition(x, y);
   this->initAnimation();
 }

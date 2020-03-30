@@ -1,6 +1,11 @@
 #include "include/stdafx.h"
 #include "include/Enemy.h"
 
+
+void Enemy::generateAttributes(const unsigned level) {
+  this->gainExp = level * (rand() % 5 + 1);
+}
+
 void Enemy::initVariables() {
   this->gainExp = 10;
 }
