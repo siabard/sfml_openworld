@@ -9,6 +9,7 @@ private:
 
   int enemyType;
   int enemyAmount;
+  int enemyCounter;
   sf::Int32 enemyTimeToSpawn;
   float enemyMaxDistance;
   bool spawned;
@@ -25,9 +26,13 @@ public:
   // accessors
   void setSpawned(const bool spawned);
   bool getSpawned() const;
+  const int getEnemyAmount() const;
   const bool canSpawn() const;
+  const int getEnemyCounter() const;
 
   // functions
+  void increaseEnemyCounter();
+  void decreaseEnemyCounter();
   void update();
   void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, const sf::Vector2f playerPosition = sf::Vector2f());
 

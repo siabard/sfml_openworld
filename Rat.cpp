@@ -1,8 +1,8 @@
 #include "include/stdafx.h"
 #include "include/Rat.h"
 
-Rat::Rat(float x, float y, sf::Texture& texture)
-  : Enemy() {
+Rat::Rat(float x, float y, sf::Texture& texture, EnemySpawnerTile& enemySpawnerTile)
+  : Enemy(enemySpawnerTile) {
   this->initVariables();
   this->initGUI();
 

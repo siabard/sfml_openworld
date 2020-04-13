@@ -2,13 +2,14 @@
 #define __RAT_H__
 
 #include "Enemy.h"
+#include "EnemySpawnerTile.h"
 
 class Rat
 : public Enemy {
 private:
   // variables
 public:
-  Rat(float x, float y, sf::Texture& texture);
+  Rat(float x, float y, sf::Texture& texture, EnemySpawnerTile& enemySpawnerTile);
   virtual ~Rat();
 
   // initilizer

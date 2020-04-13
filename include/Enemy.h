@@ -11,7 +11,7 @@ private:
   // Variables
   unsigned gainExp;
 
-  //  EnemySpawner& enemySpawner;
+  EnemySpawnerTile& enemySpawnerTile;
 
   // initializer functions
   virtual void initVariables();
@@ -22,7 +22,7 @@ protected:
 
 public:
 
-  Enemy();
+  Enemy(EnemySpawnerTile& enemy_spawner_tile);
   virtual ~Enemy();
 
 
@@ -32,6 +32,7 @@ public:
   virtual const bool isDead() const;
 
   virtual const unsigned getGainExp() const;
+  EnemySpawnerTile& getEnemySpanwerTile();
   virtual const AttributeComponent* getAttributeComp();
   virtual void updateAnimation(const float& dt) = 0;
   virtual void update(const float& dt, sf::Vector2f& mouse_pos_view) = 0;

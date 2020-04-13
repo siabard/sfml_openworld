@@ -12,7 +12,9 @@ void Enemy::initVariables() {
 
 void Enemy::initAnimation() {}
 
-Enemy::Enemy() {
+Enemy::Enemy(EnemySpawnerTile& enemy_spawner_tile)
+  : enemySpawnerTile(enemy_spawner_tile)
+{
   this->initVariables();
   this->initAnimation();
 }
@@ -27,6 +29,10 @@ void Enemy::loseHP(const int hp) {
 
 const unsigned Enemy::getGainExp() const {
   return this->gainExp;
+}
+
+EnemySpawnerTile& Enemy::getEnemySpanwerTile() {
+  return this->enemySpawnerTile;
 }
 
 const bool Enemy::isDead() const {
