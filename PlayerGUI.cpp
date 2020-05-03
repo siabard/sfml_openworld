@@ -41,6 +41,10 @@ void PlayerGUI::initHpBar() {
 
 }
 
+void PlayerGUI::initPlayerTabs(sf::VideoMode& vm, sf::Font& font, Player& player) {
+  this->playerTabs = new PlayerGUITabs(vm, font, player);
+}
+
 PlayerGUI::PlayerGUI(Player* player, sf::VideoMode& vm) : vm(vm) {
   this->player = player;
 
@@ -48,6 +52,9 @@ PlayerGUI::PlayerGUI(Player* player, sf::VideoMode& vm) : vm(vm) {
   this->initLevelBar();
   this->initEXPBar();
   this->initHpBar();
+
+  // Tabs
+  this->initPlayerTabs(this->vm, this->font, *this->player);
 }
 
 PlayerGUI::~PlayerGUI() {
@@ -74,10 +81,12 @@ void PlayerGUI::updateHpBar() {
 
 }
 
+
 void PlayerGUI::update(const float& dt) {
   this->updateLevelBar();
   this->updateEXPBar();
   this->updateHpBar();
+
 }
 
 
@@ -95,8 +104,10 @@ void PlayerGUI::renderHpBar(sf::RenderTarget& target) {
   this->hpBar->render(target);
 }
 
+
 void PlayerGUI::render(sf::RenderTarget& target) {
   this->renderLevelBar(target);
   this->renderEXPBar(target);
   this->renderHpBar(target);
+
 }

@@ -3,6 +3,7 @@
 
 #include "Player.h"
 #include "Gui.h"
+#include "PlayerGUITabs.h"
 
 class PlayerGUI {
  private:
@@ -22,10 +23,14 @@ class PlayerGUI {
   // HP bar
   gui::ProgressBar* hpBar;
 
+  // tabs
+  PlayerGUITabs* playerTabs;
+
   void initFont();
   void initLevelBar();
   void initEXPBar();
   void initHpBar();
+  void initPlayerTabs(sf::VideoMode& vm, sf::Font& font, Player& player);
 
  public:
   PlayerGUI(Player* player, sf::VideoMode& vm);

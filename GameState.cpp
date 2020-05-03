@@ -173,9 +173,6 @@ void GameState::updatePlayer(const float& dt) {
 void GameState::updateCombatAndEnemies(const float& dt) {
   int index = 0;
 
-
-  bool attacked = this->player->getWeapon()->getAttackTimer();
-
   for(auto *enemy: this->activeEnemies) {
 
     enemy->update(dt, this->mousePosView);
@@ -183,9 +180,8 @@ void GameState::updateCombatAndEnemies(const float& dt) {
     this->tileMap->updateWorldBoundsCollision(enemy, dt);
     this->tileMap->updateTileCollision(enemy, dt);
 
-    if (attacked) {
-      this->updateCombat(enemy, index, dt);
-    }
+    this->updateCombat(enemy, index, dt);
+
 
     // Dangerours!
     if (enemy->isDead()) {
@@ -209,9 +205,11 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float& dt) {
    if(enemy->getGlobalBounds().contains(this->mousePosView)
        && enemy->getDistance(*this->player) < this->player->getWeapon()->getRange()) {
 
-      int dmg = static_cast<int>(this->player->getWeapon()->getDamage());
-      enemy->loseHP( dmg );
-      this->tts->addTextTag(NEGATIVE_TAG, enemy->getCenter().x, enemy->getCenter().y, static_cast<int>(dmg ), "", "-HP");
+     if(this->player->getWeapon()->getAttackTimer()) {
+       int dmg = static_cast<int>(this->player->getWeapon()->getDamage());
+       enemy->loseHP( dmg );
+       this->tts->addTextTag(NEGATIVE_TAG, enemy->getCenter().x, enemy->getCenter().y, static_cast<int>(dmg ), "", "-HP");
+     }
 
     }
   }
