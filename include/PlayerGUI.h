@@ -41,11 +41,13 @@ class PlayerGUI {
   void updateEXPBar();
   void updateHpBar();
   void update(const float& dt);
+  void updatePlayerTabs();
 
   void renderLevelBar(sf::RenderTarget& target);
   void renderEXPBar(sf::RenderTarget& target);
   void renderHpBar(sf::RenderTarget& target);
   void render(sf::RenderTarget& target);
+  void renderPlayerTabs(sf::RenderTarget& target);
 };
 
 #endif

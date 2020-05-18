@@ -12,7 +12,7 @@ public:
   virtual ~CharacterTab();
 
   void update();
-  void render(sf::RenderTarget* target) ;
+  void render(sf::RenderTarget& target) ;
 };
 
 #endif

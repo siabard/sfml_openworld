@@ -2,7 +2,7 @@
 #include "include/CharacterTab.h"
 
 CharacterTab::CharacterTab(sf::VideoMode& vm, sf::Font& font,  Player& player)
-  : Tab(vm, font, player) {
+  : Tab(vm, font, player, false) {
   //Background
   this->back.setFillColor(sf::Color(50, 50, 50, 200));
   this->back.setSize(sf::Vector2f(gui::p2pX(30.f, this->vm), static_cast<float>(this->vm.height)));
@@ -17,9 +17,14 @@ CharacterTab::CharacterTab(sf::VideoMode& vm, sf::Font& font,  Player& player)
 CharacterTab::~CharacterTab() {}
 
 
-void CharacterTab::update() {}
+void CharacterTab::update() {
+  if (!this->hidden) {}
+}
 
-void CharacterTab::render(sf::RenderTarget* target) {
-  target->draw(this->back);
-  target->draw(this->infoText);
+void CharacterTab::render(sf::RenderTarget& target) {
+  if (!this->hidden) {
+    target.draw(this->back);
+    target.draw(this->infoText);
+  }
+
 }
